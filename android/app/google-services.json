@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "592052277155",
+    "project_id": "salla-eb47d",
+    "storage_bucket": "salla-eb47d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592052277155:android:b8d62aa207295594709416",
+        "android_client_info": {
+          "package_name": "com.example.sala_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592052277155-j2kqvcaq47q8gs55sfjosd7h9j3s6dul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmL9yDyBM8Ik-XjnaklAGMUDbAU_Vx-f4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592052277155-j2kqvcaq47q8gs55sfjosd7h9j3s6dul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:592052277155:android:287e94f824e7cf18709416",
+        "android_client_info": {
+          "package_name": "com.example.salla_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "592052277155-j2kqvcaq47q8gs55sfjosd7h9j3s6dul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmL9yDyBM8Ik-XjnaklAGMUDbAU_Vx-f4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "592052277155-j2kqvcaq47q8gs55sfjosd7h9j3s6dul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
