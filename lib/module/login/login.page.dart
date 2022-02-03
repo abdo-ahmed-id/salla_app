@@ -38,29 +38,23 @@ class LoginPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     SizedBox(height: 80.h),
-                    Text(
-                      'Welcome Back!',
-                      style: GoogleFonts.cairo(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 40.sp,
-                          color: AppTheme.primaryColor),
-                    ),
-                    SizedBox(height: 15.h),
-                    Text(
-                      'Login To Your Account',
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.cairo(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20.sp,
+                    Center(
+                      child: Text(
+                        'تسجيل الدخول الي حسابك',
+                        style: GoogleFonts.cairo(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30.sp,
+                            color: AppTheme.primaryColor),
                       ),
                     ),
+                    SizedBox(height: 15.h),
                     SizedBox(height: 25.h),
                     CustomTextForm(
                       color: Colors.white,
                       onChanged: (value) {
                         _email = value;
                       },
-                      hintText: 'Email',
+                      hintText: 'البريد الالكتروني',
                       keyboardType: TextInputType.emailAddress,
                     ),
                     SizedBox(height: 15.h),
@@ -69,13 +63,13 @@ class LoginPage extends StatelessWidget {
                       onChanged: (value) {
                         _password = value;
                       },
-                      hintText: 'Password',
+                      hintText: 'كلمه المرور',
                       keyboardType: TextInputType.text,
                       obscureText: true,
                     ),
                     SizedBox(height: 15.h),
                     CustomTextButton(
-                      text: 'Forget Your Password?',
+                      text: 'هل نسيت كلمة المرور؟',
                       size: 18,
                       onPressed: () {
                         Modular.to.pushNamed(AppRoutes.forgetPassword);
@@ -83,7 +77,7 @@ class LoginPage extends StatelessWidget {
                     ),
                     Center(
                       child: GradientButton(
-                        text: 'Login',
+                        text: 'تسجيل الدخول',
                         backgroundColor: AppTheme.primaryColor,
                         textColor: Colors.black,
                         onPressed: () {
@@ -99,13 +93,13 @@ class LoginPage extends StatelessWidget {
                     ),
                     SizedBox(height: 15.h),
                     CustomTextButton(
-                      text: "If You Don't have Account?",
+                      text: "لا تمتلك حساب ؟",
                       size: 18,
                       onPressed: () {
                         Modular.to.pushReplacementNamed(AppRoutes.signUp);
                       },
                     ),
-                    Center(
+                    /* Center(
                       child: CustomTextButton(
                         text: "Skip",
                         size: 18,
@@ -113,7 +107,7 @@ class LoginPage extends StatelessWidget {
                           Modular.to.pushReplacementNamed(AppRoutes.mainHome);
                         },
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               )),

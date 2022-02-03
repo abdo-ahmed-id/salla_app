@@ -2,9 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AuthService {
-  bool get isLogin => auth.currentUser != null;
+  static bool get isLogin => auth.currentUser != null;
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<User> register(String email, String password) async {
     try {

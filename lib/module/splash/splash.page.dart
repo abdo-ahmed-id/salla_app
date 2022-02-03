@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/module/app/bloc/app.bloc.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -23,6 +24,7 @@ class _SplashPageState extends State<SplashPage> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    Modular.get<AppBloc>().initState();
     _animationController = AnimationController(
         vsync: this, duration: Duration(milliseconds: 3100));
     _animation =

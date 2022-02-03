@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:salla_app/helper/app.routes.dart';
+import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
@@ -45,7 +45,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Sign Up',
+                    'انشاء حساب',
                     style: GoogleFonts.cairo(
                         fontWeight: FontWeight.bold,
                         fontSize: 40.sp,
@@ -57,7 +57,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     onChanged: (value) {
                       _userName = value;
                     },
-                    hintText: 'User Name',
+                    hintText: 'الاسم بالكامل',
                     keyboardType: TextInputType.text,
                   ),
                   SizedBox(height: 15.h),
@@ -66,7 +66,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     onChanged: (value) {
                       _email = value;
                     },
-                    hintText: 'Email',
+                    hintText: 'البريد الالكتروني',
                     keyboardType: TextInputType.emailAddress,
                   ),
                   SizedBox(height: 15.h),
@@ -76,7 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     onChanged: (value) {
                       _phoneNum = value;
                     },
-                    hintText: 'Phone',
+                    hintText: 'رقم المحمول',
                     keyboardType: TextInputType.phone,
                   ),
                   SizedBox(height: 15.h),
@@ -85,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     onChanged: (value) {
                       _password = value;
                     },
-                    hintText: 'Password',
+                    hintText: 'كلمة المرور',
                     keyboardType: TextInputType.text,
                     obscureText: true,
                   ),
@@ -95,19 +95,13 @@ class _SignUpPageState extends State<SignUpPage> {
                     onChanged: (value) {
                       _password = value;
                     },
-                    hintText: 'Confirm Password',
+                    hintText: 'تاكيد كلمة المرور',
                     keyboardType: TextInputType.text,
                     obscureText: true,
                   ),
-                  // Checkbox(
-                  //     activeColor: Colors.green,
-                  //     value: false,
-                  //     onChanged: (newValue) {
-                  //       checkedValue = newValue;
-                  //     }),
                   SizedBox(height: 45.h),
                   GradientButton(
-                    text: 'SignUp',
+                    text: 'انشاء حساب',
                     backgroundColor: AppTheme.primaryColor,
                     textColor: AppTheme.secondaryColor,
                     onPressed: () {
@@ -116,14 +110,20 @@ class _SignUpPageState extends State<SignUpPage> {
                       if (!currentFocus.hasPrimaryFocus) {
                         currentFocus.unfocus();
                       }
-                      _appBloc.createAccount(_email, _password);
+                      _appBloc.createAccount(
+                          userModel: UserModel(
+                        email: _email,
+                        password: _password,
+                        numPhone: _phoneNum,
+                        displayName: _userName,
+                      ));
                     },
                   ),
                   CustomTextButton(
-                    text: 'Skip',
+                    text: 'تراجع',
                     size: 18,
                     onPressed: () {
-                      Modular.to.pushReplacementNamed(AppRoutes.mainHome);
+                      Modular.to.pop();
                     },
                   ),
                   SizedBox(height: 25.h),

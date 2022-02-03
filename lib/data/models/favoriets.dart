@@ -1,14 +1,13 @@
 import 'package:firestore_model/firestore_model.dart';
 
-class Product extends FirestoreModel<Product> {
+class Favoriets extends SubCollectionModel<Favoriets> {
   String category;
   String title;
   String price;
   num rate;
   String description;
   String imageScr;
-
-  Product({
+  Favoriets({
     this.category,
     this.title,
     this.price,
@@ -17,7 +16,7 @@ class Product extends FirestoreModel<Product> {
     this.imageScr,
   });
 
-  Product.fromMap(Map<String, dynamic> map) {
+  Favoriets.fromMap(Map<String, dynamic> map) {
     this.category = map['category'];
     this.title = map['title'];
     this.description = map['description'];
@@ -26,7 +25,8 @@ class Product extends FirestoreModel<Product> {
     this.rate = map['rate'];
   }
   @override
-  ResponseBuilder<Product> get responseBuilder => (map) => Product.fromMap(map);
+  ResponseBuilder<Favoriets> get responseBuilder =>
+      (map) => Favoriets.fromMap(map);
 
   @override
   Map<String, dynamic> get toMap => {

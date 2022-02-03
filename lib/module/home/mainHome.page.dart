@@ -38,7 +38,7 @@ class MainHomePage extends StatelessWidget {
             ),
             body: IndexedStack(
               index: state.currentIndex,
-              children: const [
+              children: [
                 HomePage(),
                 ShoppingCartPage(),
                 FavoritePage(),
