@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_launch/flutter_launch.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -294,8 +295,10 @@ class ConfirmProductPage extends StatelessWidget {
               backgroundColor: AppTheme.primaryColor,
               text: '1005 جنية',
               textColor: Colors.black,
-              onPressed: () {
-                Modular.to.pushNamed(AppRoutes.thank);
+              onPressed: () async {
+                await FlutterLaunch.launchWhatsapp(
+                    phone: "+201226967080", message: "Hello");
+                // Modular.to.pushNamed(AppRoutes.thank);
               },
             ),
           ],

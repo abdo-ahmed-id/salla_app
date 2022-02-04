@@ -45,6 +45,7 @@ dependencies:
   modal_bottom_sheet: ^2.0.0
   easy_localization: ^3.0.0
   firestore_model: ^0.9.7
+  flutter_launch: ^0.3.0
 
 dev_dependencies:
   flutter_test:

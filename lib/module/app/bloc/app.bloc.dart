@@ -14,6 +14,7 @@ class AppBloc extends Cubit<AppState> {
   final AuthService _authService;
 
   AppBloc(this._authService) : super(AppState());
+
   void initState() {
     getUserData();
     print(state.user);
@@ -62,6 +63,17 @@ class AppBloc extends Cubit<AppState> {
     } else {
       print('user not found');
     }
+  }
+
+  void selectItem({
+    String categorySelect,
+    String brandSelect,
+    String modelSelect,
+  }) {
+    emit(state.copyWith(
+        categorySelect: categorySelect,
+        brandSelect: brandSelect,
+        modelSelect: modelSelect));
   }
 
   void addFav({UserModel userModel, Product product}) {

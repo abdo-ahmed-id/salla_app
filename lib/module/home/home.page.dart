@@ -8,6 +8,7 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:salla_app/data/models/category.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/module/home/home_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -34,16 +35,14 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.all(8.0.h),
               child: InkWell(
                 onTap: () {
-                  if (index == 10) {
-                    setState(() {
-                      showMaterialModalBottomSheet(
-                        context: context,
-                        builder: (context) => SingleChildScrollView(
-                          controller: ModalScrollController.of(context),
-                          child: bottomSheet(),
-                        ),
-                      );
-                    });
+                  if (index == 1) {
+                    showMaterialModalBottomSheet(
+                      context: context,
+                      builder: (context) => SingleChildScrollView(
+                        controller: ModalScrollController.of(context),
+                        child: HomeWidget.bottomSheet(),
+                      ),
+                    );
                   } else {
                     Modular.to
                         .pushNamed(AppRoutes.category, arguments: category);
@@ -72,87 +71,5 @@ class _HomePageState extends State<HomePage> {
             );
           });
     }));
-  }
-
-  String _selectedItem1 = 'النمط ';
-  String _selectedItem2 = 'مرسيدس';
-  String _selectedItem3 = 'الفئة';
-  List _options = [
-    'مرسيدس',
-    'لادا',
-    'أودي ',
-    'بريليانس ',
-    'بيجو ',
-    'بروتون ',
-  ];
-
-  Widget bottomSheet() {
-    return Container(
-      color: Colors.grey[300],
-      height: 500.h,
-      child: Column(
-        children: [
-          SizedBox(height: 20.h),
-          popupItem(
-              mainText: 'اختر النمط',
-              selectedItem: _selectedItem1,
-              list: _options),
-          SizedBox(height: 20.h),
-          popupItem(
-              mainText: 'اختر الموديل',
-              selectedItem: _selectedItem2,
-              list: _options),
-          SizedBox(height: 20.h),
-          popupItem(
-              mainText: 'اختر فئة السيارة',
-              selectedItem: _selectedItem3,
-              list: _options),
-        ],
-      ),
-    );
-  }
-
-  Widget popupItem({String mainText, String selectedItem, List list}) {
-    return PopupMenuButton(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          children: [
-            Text(
-              mainText,
-              style:
-                  GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            Icon(
-              Icons.arrow_drop_down,
-              size: 40,
-            ),
-            SizedBox(width: 120.w),
-            Text(
-              selectedItem,
-              style:
-                  GoogleFonts.cairo(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
-      itemBuilder: (BuildContext bc) {
-        return list
-            .map((day) => PopupMenuItem(
-                  child: Text(
-                    day,
-                    style: GoogleFonts.cairo(
-                        fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  value: day,
-                ))
-            .toList();
-      },
-      onSelected: (value) {
-        setState(() {
-          selectedItem = value;
-        });
-      },
-    );
   }
 }
