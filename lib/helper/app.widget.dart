@@ -196,6 +196,7 @@ class SocialButton extends StatelessWidget {
 
 class CustomTextForm extends StatelessWidget {
   final String hintText;
+  final String labelText;
   final String initialValue;
   final bool obscureText;
   final TextInputType keyboardType;
@@ -218,6 +219,7 @@ class CustomTextForm extends StatelessWidget {
       this.validator,
       this.controller,
       this.onTap,
+      this.labelText,
       this.color});
 
   @override

@@ -4,14 +4,15 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salla_app/data/models/product.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/module/confirm_product/confirm.product_widget.dart';
 
 class ConfirmProductPage extends StatelessWidget {
-  const ConfirmProductPage({Key key}) : super(key: key);
-
+  Product product;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,70 +36,7 @@ class ConfirmProductPage extends StatelessWidget {
                 fontSize: 18.sp,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'الاسم بالكامل',
-                        style: GoogleFonts.cairo(
-                          fontSize: 20.sp,
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      Text(
-                        'اسم المدينة',
-                        style: GoogleFonts.cairo(
-                          fontSize: 20.sp,
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      Text(
-                        'اسم المنطقة',
-                        style: GoogleFonts.cairo(
-                          fontSize: 20.sp,
-                        ),
-                      ),
-                      SizedBox(height: 16.h),
-                      Text(
-                        'اسم الشارع',
-                        style: GoogleFonts.cairo(
-                          fontSize: 20.sp,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Spacer(),
-                  Column(
-                    children: [
-                      Text(
-                        'عمر عبدالله ',
-                        style: GoogleFonts.cairo(color: Colors.blueGrey),
-                      ),
-                      SizedBox(height: 22.h),
-                      Text(
-                        'القاهرة',
-                        style: GoogleFonts.cairo(color: Colors.blueGrey),
-                      ),
-                      SizedBox(height: 22.h),
-                      Text(
-                        'القاهرة',
-                        style: GoogleFonts.cairo(color: Colors.blueGrey),
-                      ),
-                      SizedBox(height: 22.h),
-                      Text(
-                        'القاهرة',
-                        style: GoogleFonts.cairo(color: Colors.blueGrey),
-                      ),
-                    ],
-                  )
-                ],
-              ),
-            ),
+            const PersonalInformation(),
             const Divider(
               thickness: 3,
             ),

@@ -7,19 +7,25 @@ class UserModel extends FirestoreModel<UserModel> {
   String displayName;
   String userName;
   String password;
+  String cityName;
+  String areaName;
+  String streetName;
 
   UserModel({
     this.displayName,
     this.email,
     this.numPhone,
     this.password,
+    this.userName,
+    this.areaName,
+    this.cityName,
+    this.streetName,
   });
 
   UserModel.fromAuth(User userAuth) {
     this.email = userAuth.email ?? '';
     this.numPhone = userAuth.phoneNumber ?? '';
     this.displayName = userAuth.displayName ?? '';
-
     this.userName = userAuth.email.split('@').first.trim() ?? '';
   }
 
@@ -29,6 +35,9 @@ class UserModel extends FirestoreModel<UserModel> {
         "userName": email.split('@').first.trim() ?? '',
         'email': email,
         "numPhone": numPhone,
+        'cityName': cityName,
+        'areaName': areaName,
+        'streetName': streetName,
       };
 
   UserModel.fromMap(Map<String, dynamic> map) {
@@ -36,6 +45,9 @@ class UserModel extends FirestoreModel<UserModel> {
     this.displayName = map['displayName'] ?? '';
     this.userName = map['userName'] ?? '';
     this.email = map['email'] ?? '';
+    this.streetName = map['streetName'];
+    this.cityName = map['cityName'];
+    this.areaName = map['areaName'];
   }
 
   @override
