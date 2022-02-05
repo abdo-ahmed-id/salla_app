@@ -10,6 +10,7 @@ import 'package:salla_app/module/home/mainHome.page.dart';
 import 'package:salla_app/module/login/forget_password.page.dart';
 import 'package:salla_app/module/login/login.page.dart';
 import 'package:salla_app/module/product/productVeiw.page.dart';
+import 'package:salla_app/module/profile/pages/personal.page.dart';
 import 'package:salla_app/module/search/search.page.dart';
 import 'package:salla_app/module/signUp/signUp.page.dart';
 import 'package:salla_app/module/splash/splash.page.dart';
@@ -34,10 +35,17 @@ class AppModule extends Module {
         child: (_, args) => ProductViewPage(
               product: args.data,
             )),
-    ChildRoute(AppRoutes.delivery, child: (_, __) => DeliveryPage()),
+    ChildRoute(AppRoutes.delivery,
+        child: (_, args) => DeliveryPage(
+              product: args.data,
+            )),
     ChildRoute(AppRoutes.search, child: (_, __) => SearchPage()),
-    ChildRoute(AppRoutes.confirm, child: (_, __) => ConfirmProductPage()),
+    ChildRoute(AppRoutes.confirm,
+        child: (_, args) => ConfirmProductPage(
+              product: args.data,
+            )),
     ChildRoute(AppRoutes.thank, child: (_, __) => ThankPage()),
+    ChildRoute(AppRoutes.personal, child: (_, __) => PersonalPage()),
     ChildRoute(AppRoutes.forgetPassword,
         child: (_, __) => ForgetPasswordPage()),
   ];

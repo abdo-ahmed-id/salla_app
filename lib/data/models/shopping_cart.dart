@@ -1,11 +1,34 @@
 import 'package:firestore_model/firestore_model.dart';
-import 'package:salla_app/data/models/product.dart';
 
 class ShoppingCart extends SubCollectionModel<ShoppingCart> {
-  Product product;
-  ShoppingCart({this.product});
+  String category;
+  String title;
+  String price;
+  num rate;
+  String description;
+  String imageScr;
+  num amount = 1;
+  num totalCoast;
+  ShoppingCart({
+    this.category,
+    this.title,
+    this.price,
+    this.rate,
+    this.description,
+    this.imageScr,
+    this.amount,
+    this.totalCoast,
+  });
+
   ShoppingCart.fromMap(Map<String, dynamic> map) {
-    this.product = map['product'];
+    this.category = map['category'];
+    this.title = map['title'];
+    this.description = map['description'];
+    this.imageScr = map['imageScr'];
+    this.price = map['price'];
+    this.rate = map['rate'];
+    this.amount = map['amount'];
+    this.totalCoast = map['totalCoast'];
   }
   @override
   ResponseBuilder<ShoppingCart> get responseBuilder =>
@@ -13,6 +36,13 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
 
   @override
   Map<String, dynamic> get toMap => {
-        'product': this.product,
+        'category': this.category,
+        'title': this.title,
+        'description': this.description,
+        'imageScr': this.imageScr,
+        'price': this.price,
+        'rate': this.rate,
+        'amount': this.amount ?? 1,
+        'totalCoast': this.totalCoast,
       };
 }

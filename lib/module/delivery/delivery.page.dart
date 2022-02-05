@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 
 class DeliveryPage extends StatefulWidget {
-  const DeliveryPage({Key key}) : super(key: key);
+  final ShoppingCart product;
+  const DeliveryPage({Key key, this.product}) : super(key: key);
 
   @override
   State<DeliveryPage> createState() => _DeliveryPageState();
@@ -87,7 +89,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
                         }
                       : () async {
                           await user.save();
-                          Modular.to.pushNamed(AppRoutes.confirm);
+                          Modular.to.pushNamed(AppRoutes.confirm,
+                              arguments: widget.product);
                         },
                 ),
               ),

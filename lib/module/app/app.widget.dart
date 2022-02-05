@@ -1,3 +1,4 @@
+import 'package:asuka/asuka.dart' as asuka;
 import 'package:easy_localization/src/public_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -7,12 +8,6 @@ import 'package:salla_app/helper/app.routes.dart';
 class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // ScreenUtil.init(
-    //     BoxConstraints(
-    //         maxWidth: MediaQuery.of(context).size.width,
-    //         maxHeight: MediaQuery.of(context).size.height),
-    //     designSize: Size(360, 690),
-    //     orientation: Orientation.portrait);
     return ScreenUtilInit(
       designSize: Size(392.72727272727275, 781.0909090909091),
       builder: () => MaterialApp(
@@ -28,7 +23,7 @@ class AppWidget extends StatelessWidget {
           localizationsDelegates: context.localizationDelegates,
           supportedLocales: context.supportedLocales,
           locale: context.locale,
-          // builder: asuka.builder,
+          builder: asuka.builder,
           initialRoute: AppRoutes.splash,
         ).modular(),
       ),

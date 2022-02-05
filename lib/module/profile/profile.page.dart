@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.widget.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -13,7 +15,9 @@ class ProfilePage extends StatelessWidget {
         children: [
           CustomListTile(
             text: 'المعلومات الشخصية',
-            onTap: () {},
+            onTap: () {
+              Modular.to.pushNamed(AppRoutes.personal);
+            },
             icon: Icons.person,
           ),
           CustomListTile(

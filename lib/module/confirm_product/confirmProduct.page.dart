@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_launch/flutter_launch.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:salla_app/data/models/product.dart';
+import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/module/app/bloc/app.bloc.dart';
 import 'package:salla_app/module/confirm_product/confirm.product_widget.dart';
 
 class ConfirmProductPage extends StatelessWidget {
-  Product product;
+  ShoppingCart product;
+
+  ConfirmProductPage({this.product});
+  AppBloc appBloc = Modular.get<AppBloc>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +74,7 @@ class ConfirmProductPage extends StatelessWidget {
                           Center(
                             child: ListTile(
                               title: Text(
-                                'بطاريات',
+                                product.title,
                                 style: GoogleFonts.cairo(
                                     fontWeight: FontWeight.bold, fontSize: 22),
                               ),
@@ -82,7 +86,7 @@ class ConfirmProductPage extends StatelessWidget {
                                     color: Colors.blue),
                               ),
                               trailing: Text(
-                                '950 جنية',
+                                '${product.price} جنية',
                                 style: GoogleFonts.cairo(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
@@ -101,7 +105,7 @@ class ConfirmProductPage extends StatelessWidget {
                                   ),
                                   RatingBar.builder(
                                     itemSize: 20,
-                                    initialRating: 3,
+                                    initialRating: product.rate.toDouble(),
                                     minRating: 1,
                                     direction: Axis.horizontal,
                                     allowHalfRating: true,
@@ -155,30 +159,16 @@ class ConfirmProductPage extends StatelessWidget {
                             leading: Text(
                               'الكمية',
                               style: GoogleFonts.cairo(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp,
+                              ),
+                            ),
+                            title: Text(
+                              product.amount.toString(),
+                              style: GoogleFonts.cairo(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18.sp,
                                   color: AppTheme.primaryColor),
-                            ),
-                            title: Center(
-                              child: Row(
-                                children: [
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.remove),
-                                  ),
-                                  Text(
-                                    '1',
-                                    style: GoogleFonts.cairo(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.sp,
-                                        color: AppTheme.primaryColor),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(Icons.add),
-                                  ),
-                                ],
-                              ),
                             ),
                           ),
                           Row(
@@ -187,15 +177,15 @@ class ConfirmProductPage extends StatelessWidget {
                               Text(
                                 'المبلغ الاجمالي',
                                 style: GoogleFonts.cairo(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18.sp,
-                                    color: AppTheme.primaryColor),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp,
+                                ),
                               ),
                               SizedBox(
                                 width: 30.w,
                               ),
                               Text(
-                                '300 جنية',
+                                '${int.parse(product.price) * product.amount} جنية',
                                 style: GoogleFonts.cairo(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
@@ -231,12 +221,16 @@ class ConfirmProductPage extends StatelessWidget {
             ),
             CustomButton(
               backgroundColor: AppTheme.primaryColor,
-              text: '1005 جنية',
+              text: 'شراء',
               textColor: Colors.black,
               onPressed: () async {
-                await FlutterLaunch.launchWhatsapp(
-                    phone: "+201226967080", message: "Hello");
-                // Modular.to.pushNamed(AppRoutes.thank);
+                if (appBloc.state.user.streetName == null) {
+                  Modular.to.pushNamed(AppRoutes.delivery, arguments: product);
+                } else {
+                  Modular.to.pushNamed(AppRoutes.thank);
+                  product.delete(docId: product.docId);
+                  appBloc.changeIndexTo(0);
+                }
               },
             ),
           ],

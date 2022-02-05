@@ -39,6 +39,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
   google_fonts: ^2.2.0
+  asuka: ^2.0.0
   flutter_rating_bar: ^4.0.0
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0

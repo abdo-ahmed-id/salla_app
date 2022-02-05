@@ -2,11 +2,12 @@ import 'package:firestore_model/firestore_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 
 class PersonalInformation extends StatelessWidget {
-  const PersonalInformation({Key key}) : super(key: key);
-
+  const PersonalInformation({this.product});
+  final ShoppingCart product;
   @override
   Widget build(BuildContext context) {
     return ModelStreamSingleBuilder<UserModel>(onSuccess: (user) {
@@ -56,17 +57,17 @@ class PersonalInformation extends StatelessWidget {
                 ),
                 SizedBox(height: 22.h),
                 Text(
-                  user.cityName,
+                  user.cityName ?? '',
                   style: GoogleFonts.cairo(color: Colors.blueGrey),
                 ),
                 SizedBox(height: 22.h),
                 Text(
-                  user.areaName,
+                  user.areaName ?? '',
                   style: GoogleFonts.cairo(color: Colors.blueGrey),
                 ),
                 SizedBox(height: 22.h),
                 Text(
-                  user.streetName,
+                  user.streetName ?? '',
                   style: GoogleFonts.cairo(color: Colors.blueGrey),
                 ),
               ],
