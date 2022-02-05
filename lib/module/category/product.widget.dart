@@ -39,14 +39,14 @@ class ProductWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold, fontSize: 22),
               ),
               leading: Text(
-                'Ac delco',
+                product.company ?? 'Ac delco',
                 style: GoogleFonts.lato(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.sp,
                     color: Colors.blue),
               ),
               trailing: Text(
-                ' ${product.price}جنيه ',
+                ' ${product.price} جنيه ',
                 style: GoogleFonts.cairo(
                     fontWeight: FontWeight.bold,
                     fontSize: 18.sp,
@@ -57,7 +57,7 @@ class ProductWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '950 امبير',
+                    product.subTitle,
                     style: GoogleFonts.cairo(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.sp,
@@ -134,18 +134,21 @@ class ProductWidget extends StatelessWidget {
                   icon: Icon(
                     Icons.favorite,
                     color: product.favList.contains(state.user?.docId)
-                        ? Colors.deepOrange
+                        ? AppTheme.primaryColor
                         : Colors.black,
                   ),
-                  onPressed: () {
-                    if (AuthService.isLogin) {
-                      appBloc.addFav(product: product, userModel: state.user);
-                      print('login');
-                    } else {
-                      loginButtomSheete(context: context);
-                      print('no login');
-                    }
-                  },
+                  onPressed: state.isWrite == false
+                      ? () {
+                          if (AuthService.isLogin) {
+                            appBloc.addFav(
+                                product: product, userModel: state.user);
+                            print('login');
+                          } else {
+                            loginButtomSheete(context: context);
+                            print('no login');
+                          }
+                        }
+                      : () {},
                 ),
               )
             ],

@@ -8,10 +8,12 @@ class AppState extends Equatable {
   final String categorySelect;
   final String brandSelect;
   final String modelSelect;
+  final bool isWrite;
 
   AppState({
     this.currentIndex = 0,
     this.isFav = false,
+    this.isWrite = false,
     this.user,
     this.brandSelect,
     this.categorySelect,
@@ -25,6 +27,7 @@ class AppState extends Equatable {
     String categorySelect,
     String brandSelect,
     String modelSelect,
+    bool isWrite,
   }) =>
       AppState(
         currentIndex: currentIndex ?? this.currentIndex,
@@ -33,11 +36,13 @@ class AppState extends Equatable {
         categorySelect: categorySelect ?? this.categorySelect,
         brandSelect: brandSelect ?? this.brandSelect,
         modelSelect: modelSelect ?? this.modelSelect,
+        isWrite: isWrite ?? this.isWrite,
       );
 
   @override
   List<Object> get props => [
         currentIndex,
+        isWrite,
         isFav,
         user,
         categorySelect,

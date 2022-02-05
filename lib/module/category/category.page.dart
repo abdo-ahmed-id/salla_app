@@ -17,8 +17,10 @@ import '../app/bloc/app.bloc.dart';
 class CategoryPage extends StatelessWidget {
   final Category category;
   final AppBloc _appBloc = Modular.get<AppBloc>();
+  final AppState _appState = Modular.get<AppBloc>().state;
 
   CategoryPage({this.category});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +33,12 @@ class CategoryPage extends StatelessWidget {
         ),
       ),
       body: ModelStreamGetBuilder<Product>(
-          query: (q) => q.where('category', isEqualTo: category.title),
+          query: category.carInformation == false
+              ? (q) => q
+                  .where('categoryCar', isEqualTo: _appState.user.categoryCar)
+                  // .where('brandCar', isEqualTo: _appState.user.brandCar)
+                  .where('modelCar', isEqualTo: _appState.user.modelCar)
+              : (q) => q.where('category', isEqualTo: category.title),
           onLoading: () => const Center(child: CircularProgressIndicator()),
           onEmpty: () => const Center(child: Text('لا توجد منتجات حتي الان')),
           onSuccess: (products) {

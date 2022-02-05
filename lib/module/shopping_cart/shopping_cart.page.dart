@@ -24,7 +24,8 @@ class ShoppingCartPage extends StatelessWidget {
           bloc: appBloc,
           builder: (context, state) {
             return ModelStreamGetBuilder<ShoppingCart>(
-                parentModel: state.user,
+                parentModel: state?.user,
+                onEmpty: () => Text('no'),
                 onSuccess: (products) {
                   return ListView.builder(
                     itemCount: products.length,

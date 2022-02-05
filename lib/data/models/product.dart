@@ -8,6 +8,11 @@ class Product extends FirestoreModel<Product> {
   String description;
   String imageScr;
   List<String> favList = [];
+  String company;
+  String subTitle;
+  String brandCar;
+  String categoryCar;
+  String modelCar;
 
   Product({
     this.category,
@@ -26,6 +31,11 @@ class Product extends FirestoreModel<Product> {
     this.imageScr = map['imageScr'];
     this.price = map['price'];
     this.rate = map['rate'];
+    this.company = map['company'];
+    this.subTitle = map['subTitle'];
+    this.brandCar = map['brandCar'];
+    this.categoryCar = map['categoryCar'];
+    this.modelCar = map['modelCar'];
   }
   @override
   ResponseBuilder<Product> get responseBuilder => (map) => Product.fromMap(map);
@@ -39,5 +49,10 @@ class Product extends FirestoreModel<Product> {
         'price': this.price,
         'rate': this.rate,
         'favList': this.favList,
+        'subTitle': this.subTitle,
+        'company': this.company,
+        'brandCar': this.brandCar,
+        'categoryCar': this.categoryCar,
+        'modelCar': this.modelCar,
       };
 }

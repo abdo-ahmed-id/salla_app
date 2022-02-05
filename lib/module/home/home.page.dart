@@ -8,10 +8,14 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:salla_app/data/models/category.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/module/app/bloc/app.bloc.dart';
+import 'package:salla_app/module/app/bloc/app.state.dart';
+import 'package:salla_app/module/app/service/auth.service.dart';
 import 'package:salla_app/module/home/home_widget.dart';
+import 'package:salla_app/module/login/login.page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  AppState appState = Modular.get<AppBloc>().state;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -34,20 +38,36 @@ class _HomePageState extends State<HomePage> {
             return Padding(
               padding: EdgeInsets.all(8.0.h),
               child: InkWell(
-                onTap: () {
-                  if (index == 10) {
-                    showMaterialModalBottomSheet(
-                      context: context,
-                      builder: (context) => SingleChildScrollView(
-                        controller: ModalScrollController.of(context),
-                        child: HomeWidget.bottomSheet(),
-                      ),
-                    );
-                  } else {
-                    Modular.to
-                        .pushNamed(AppRoutes.category, arguments: category);
-                  }
-                },
+                onTap: AuthService.isLogin
+                    ? () {
+                        if (category.carInformation == false &&
+                            widget.appState?.user?.brandCar == null) {
+                          showMaterialModalBottomSheet(
+                            context: context,
+                            builder: (context) => SingleChildScrollView(
+                              controller: ModalScrollController.of(context),
+                              child: HomeWidget.bottomSheet(),
+                            ),
+                          );
+                        } else {
+                          Modular.to.pushNamed(AppRoutes.category,
+                              arguments: category);
+                        }
+                      }
+                    : () {
+                        if (category.carInformation == false) {
+                          showMaterialModalBottomSheet(
+                            context: context,
+                            builder: (context) => SingleChildScrollView(
+                              controller: ModalScrollController.of(context),
+                              child: LoginPage(),
+                            ),
+                          );
+                        } else {
+                          Modular.to.pushNamed(AppRoutes.category,
+                              arguments: category);
+                        }
+                      },
                 child: Column(
                   children: [
                     Container(

@@ -98,6 +98,7 @@ class AppBloc extends Cubit<AppState> {
   }
 
   void addFav({UserModel userModel, product}) async {
+    emit(state.copyWith(isWrite: true));
     fav(product);
     bool isFav =
         await userModel.subCollection<Favoriets>().exists(product.docId);
@@ -105,6 +106,7 @@ class AppBloc extends Cubit<AppState> {
     if (isFav) {
       await userModel.subCollection<Favoriets>().delete(docId: product.docId);
       Notifications.success('تم حذف المنتج من المفضلة');
+      emit(state.copyWith(isWrite: false));
     } else {
       Favoriets favoriets = userModel.subCollection<Favoriets>();
       favoriets.title = product.title;
@@ -114,7 +116,7 @@ class AppBloc extends Cubit<AppState> {
       favoriets.description = product.description;
       favoriets.imageScr = product.imageScr;
       favoriets.create(docId: product.docId);
-      emit(state.copyWith(isFav: !state.isFav));
+      emit(state.copyWith(isFav: !state.isFav, isWrite: false));
       Notifications.success('تم اضافة المنتج الي المفضلة');
     }
   }

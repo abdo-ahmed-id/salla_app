@@ -3,6 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salla_app/helper/app.routes.dart';
+import 'package:salla_app/helper/app.theme.dart';
+import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/constants.dart';
 import 'package:salla_app/module/app/bloc/app.bloc.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
@@ -41,6 +44,23 @@ class HomeWidget {
                     mainText: 'اختر الموديل',
                     selectedItem: state.modelSelect ?? '',
                     list: modelList(state)),
+                SizedBox(height: 20.h),
+                if (state.modelSelect != null &&
+                    state.brandSelect != null &&
+                    state.categorySelect != null)
+                  CustomButton(
+                    text: 'حفظ',
+                    textColor: Colors.black,
+                    backgroundColor: AppTheme.primaryColor,
+                    onPressed: () {
+                      state.user.update(data: {
+                        'categoryCar': state.categorySelect,
+                        'brandCar': state.brandSelect,
+                        'modelCar': state.modelSelect,
+                      });
+                      Modular.to.pushNamed(AppRoutes.category);
+                    },
+                  )
               ],
             ),
           );
