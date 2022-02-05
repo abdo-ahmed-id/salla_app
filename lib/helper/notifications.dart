@@ -1,5 +1,6 @@
 import 'package:asuka/asuka.dart' as asuka;
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/helper/alert_dialog.dart';
 
 class Notifications {
@@ -56,7 +57,7 @@ class Notifications {
     asuka.showSnackBar(SnackBar(
       content: Text(
         content ?? '',
-        style: TextStyle(
+        style: GoogleFonts.cairo(
           color: textColor ?? Colors.white,
           fontSize: 16,
           fontWeight: FontWeight.bold,

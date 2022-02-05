@@ -6,6 +6,7 @@ import 'package:salla_app/data/models/favoriets.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
+import 'package:salla_app/helper/notifications.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/app/service/auth.service.dart';
 
@@ -55,9 +56,10 @@ class AppBloc extends Cubit<AppState> {
     User user =
         await _authService.register(userModel.email, userModel.password);
     if (user != null) {
-      // Modular.to.pushReplacementNamed(AppRoutes.mainHome);
+      Modular.to.pushReplacementNamed(AppRoutes.mainHome);
       print('userName${user.displayName}');
-      userModel.create(docId: user.uid);
+      await userModel.create(docId: user.uid);
+      Notifications.success('تم انشاء حسابك بنجاح شكرا لك');
       getUserData();
     } else {
       print('user not found');
@@ -68,6 +70,7 @@ class AppBloc extends Cubit<AppState> {
     User user = await _authService.signIn(email, password);
     if (user != null) {
       Modular.to.pushReplacementNamed(AppRoutes.mainHome);
+      Notifications.success('تم تسجيل الدخول بنجاح');
       getUserData();
     } else {
       print('user not found');
@@ -91,6 +94,7 @@ class AppBloc extends Cubit<AppState> {
     print(isFav);
     if (isFav) {
       await userModel.subCollection<Favoriets>().delete(docId: product.docId);
+      Notifications.success('تم حذف المنتج من المفضلة');
     } else {
       Favoriets favoriets = userModel.subCollection<Favoriets>();
       favoriets.title = product.title;
@@ -101,12 +105,15 @@ class AppBloc extends Cubit<AppState> {
       favoriets.imageScr = product.imageScr;
       favoriets.create(docId: product.docId);
       emit(state.copyWith(isFav: !state.isFav));
+      Notifications.success('تم اضافة المنتج الي المفضلة');
     }
   }
 
   void addShoppingCart({UserModel userModel, Product product}) async {
     bool isCart =
         await userModel.subCollection<ShoppingCart>().exists(product.docId);
+    Notifications.success('تم حذف المنتج من عربة التسوق');
+
     print(isCart);
     if (isCart) {
       await userModel
@@ -121,6 +128,7 @@ class AppBloc extends Cubit<AppState> {
       shoppingCart.description = product.description;
       shoppingCart.imageScr = product.imageScr;
       shoppingCart.create(docId: product.docId);
+      Notifications.success('تم اضافة المنتج الي عربة التسوق');
     }
   }
 }
