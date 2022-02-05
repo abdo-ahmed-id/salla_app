@@ -133,7 +133,9 @@ class ProductWidget extends StatelessWidget {
                 child: IconButton(
                   icon: Icon(
                     Icons.favorite,
-                    color: state.isFav ? Colors.deepOrange : Colors.black,
+                    color: product.favList.contains(state.user?.docId)
+                        ? Colors.deepOrange
+                        : Colors.black,
                   ),
                   onPressed: () {
                     if (AuthService.isLogin) {

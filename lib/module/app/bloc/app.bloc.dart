@@ -88,7 +88,17 @@ class AppBloc extends Cubit<AppState> {
         modelSelect: modelSelect));
   }
 
+  void fav(Product product) async {
+    bool fav = product.favList.contains(state.user.docId);
+    if (fav) {
+      await product.arrayRemove(field: 'favList', elements: [state.user.docId]);
+    } else if (fav == false) {
+      await product.arrayUnion(field: 'favList', elements: [state.user.docId]);
+    }
+  }
+
   void addFav({UserModel userModel, product}) async {
+    fav(product);
     bool isFav =
         await userModel.subCollection<Favoriets>().exists(product.docId);
     print(isFav);

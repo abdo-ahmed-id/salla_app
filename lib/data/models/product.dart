@@ -7,6 +7,7 @@ class Product extends FirestoreModel<Product> {
   num rate;
   String description;
   String imageScr;
+  List<String> favList = [];
 
   Product({
     this.category,
@@ -19,6 +20,7 @@ class Product extends FirestoreModel<Product> {
 
   Product.fromMap(Map<String, dynamic> map) {
     this.category = map['category'];
+    this.favList = map['favList'] is List ? map['favList'].cast<String>() : [];
     this.title = map['title'];
     this.description = map['description'];
     this.imageScr = map['imageScr'];
@@ -36,5 +38,6 @@ class Product extends FirestoreModel<Product> {
         'imageScr': this.imageScr,
         'price': this.price,
         'rate': this.rate,
+        'favList': this.favList,
       };
 }
