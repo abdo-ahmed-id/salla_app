@@ -36,8 +36,8 @@ class CategoryPage extends StatelessWidget {
           query: category?.carInformation == false
               ? (q) => q
                   .where('categoryCar', isEqualTo: _appState.user.categoryCar)
-                  // .where('brandCar', isEqualTo: _appState.user.brandCar)
-                  .where('modelCar', isEqualTo: _appState.user.modelCar)
+                  .where('brandCar', isEqualTo: _appState.user.brandCar)
+              // .where('modelCar', isEqualTo: _appState.user.modelCar)
               : (q) => q.where('category', isEqualTo: category.title),
           onLoading: () => const Center(child: CircularProgressIndicator()),
           onEmpty: () => const Center(child: Text('لا توجد منتجات حتي الان')),

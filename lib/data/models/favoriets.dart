@@ -7,14 +7,17 @@ class Favoriets extends SubCollectionModel<Favoriets> {
   num rate;
   String description;
   String imageScr;
-  Favoriets({
-    this.category,
-    this.title,
-    this.price,
-    this.rate,
-    this.description,
-    this.imageScr,
-  });
+  String company;
+  String subTitle;
+  Favoriets(
+      {this.category,
+      this.title,
+      this.price,
+      this.rate,
+      this.description,
+      this.imageScr,
+      this.subTitle,
+      this.company});
 
   Favoriets.fromMap(Map<String, dynamic> map) {
     this.category = map['category'];
@@ -23,6 +26,8 @@ class Favoriets extends SubCollectionModel<Favoriets> {
     this.imageScr = map['imageScr'];
     this.price = map['price'];
     this.rate = map['rate'];
+    this.subTitle = map['subTitle'];
+    this.company = map['company'];
   }
   @override
   ResponseBuilder<Favoriets> get responseBuilder =>
@@ -36,5 +41,7 @@ class Favoriets extends SubCollectionModel<Favoriets> {
         'imageScr': this.imageScr,
         'price': this.price,
         'rate': this.rate,
+        'subTitle': this.subTitle,
+        'company': this.company,
       };
 }

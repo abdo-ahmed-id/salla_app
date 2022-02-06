@@ -14,14 +14,14 @@ class Product extends FirestoreModel<Product> {
   String categoryCar;
   String modelCar;
 
-  Product({
-    this.category,
-    this.title,
-    this.price,
-    this.rate,
-    this.description,
-    this.imageScr,
-  });
+  Product(
+      {this.category,
+      this.title,
+      this.price,
+      this.rate,
+      this.description,
+      this.imageScr,
+      this.company});
 
   Product.fromMap(Map<String, dynamic> map) {
     this.category = map['category'];

@@ -29,7 +29,7 @@ class ShoppingCartPage extends StatelessWidget {
               return ModelStreamGetBuilder<ShoppingCart>(
                   parentModel: state?.user,
                   onError: (e) => Text(e),
-                  onEmpty: () => Text('no'),
+                  onEmpty: () => Center(child: Text('لا توجد منتجات حتي الان')),
                   onSuccess: (products) {
                     return ListView.builder(
                       itemCount: products.length,
@@ -53,8 +53,8 @@ class ShoppingCartPage extends StatelessWidget {
                                         fontSize: 22),
                                   ),
                                   leading: Text(
-                                    'Ac delco',
-                                    style: GoogleFonts.lato(
+                                    product?.company,
+                                    style: GoogleFonts.cairo(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18.sp,
                                         color: Colors.blue),
@@ -72,7 +72,7 @@ class ShoppingCartPage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '950 امبير',
+                                        product.subTitle,
                                         style: GoogleFonts.cairo(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.sp,

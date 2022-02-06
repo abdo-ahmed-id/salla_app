@@ -59,7 +59,7 @@ class HomeWidget {
                         'brandCar': state.brandSelect,
                         'modelCar': state.modelSelect,
                       });
-                      Modular.to.pushNamed(AppRoutes.category);
+                      Modular.to.pushNamed(AppRoutes.mainHome);
                     },
                   )
               ],

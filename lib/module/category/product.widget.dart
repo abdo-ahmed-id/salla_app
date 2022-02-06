@@ -65,7 +65,7 @@ class ProductWidget extends StatelessWidget {
                   ),
                   RatingBar.builder(
                     itemSize: 20,
-                    initialRating: product.rate.toDouble(),
+                    initialRating: product?.rate.toDouble() ?? 3,
                     minRating: 1,
                     direction: Axis.horizontal,
                     allowHalfRating: true,

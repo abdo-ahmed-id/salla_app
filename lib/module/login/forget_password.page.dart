@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/helper/notifications.dart';
 
 class ForgetPasswordPage extends StatelessWidget {
   String _email;
@@ -15,7 +16,7 @@ class ForgetPasswordPage extends StatelessWidget {
         child: Container(
           height: double.infinity,
           width: double.infinity,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               image: DecorationImage(
             fit: BoxFit.cover,
             image: AssetImage(
@@ -62,16 +63,18 @@ class ForgetPasswordPage extends StatelessWidget {
                       if (_email == null ||
                           _email.isEmpty ||
                           !_email.contains('@')) {
-                        // Notifications.error('please enter correct email'.tr());
+                        Notifications.error(
+                            'من فضلك قم بادخال بريد الكتروني صحيح');
                       } else {
                         print('email$_email');
 
                         FirebaseAuth.instance
                             .sendPasswordResetEmail(email: _email)
-                            .then((value) => null)
+                            .then((value) => Notifications.success(
+                                'من فضلك قم بزيارة بريدك الالكتروني'))
                             .catchError((e) {
                           print('error$e');
-                          // Notifications.error('error $e');
+                          Notifications.error('error $e');
                         });
                       }
                     } on FirebaseAuthException catch (e) {

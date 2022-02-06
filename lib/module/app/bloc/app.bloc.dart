@@ -170,7 +170,10 @@ class AppBloc extends Cubit<AppState> {
       favoriets.category = product.category;
       favoriets.description = product.description;
       favoriets.imageScr = product.imageScr;
+      favoriets.company = product.company;
+      favoriets.subTitle = product.subTitle;
       favoriets.create(docId: product.docId);
+
       emit(state.copyWith(isFav: !state.isFav, isWrite: false));
       Notifications.success('تم اضافة المنتج الي المفضلة');
     }
@@ -179,13 +182,13 @@ class AppBloc extends Cubit<AppState> {
   void addShoppingCart({UserModel userModel, Product product}) async {
     bool isCart =
         await userModel.subCollection<ShoppingCart>().exists(product.docId);
-    Notifications.success('تم حذف المنتج من عربة التسوق');
 
     print(isCart);
     if (isCart) {
       await userModel
           .subCollection<ShoppingCart>()
           .delete(docId: product.docId);
+      Notifications.success('تم حذف المنتج من عربة التسوق');
     } else {
       ShoppingCart shoppingCart = userModel.subCollection<ShoppingCart>();
       shoppingCart.title = product.title;
@@ -194,6 +197,8 @@ class AppBloc extends Cubit<AppState> {
       shoppingCart.category = product.category;
       shoppingCart.description = product.description;
       shoppingCart.imageScr = product.imageScr;
+      shoppingCart.company = product.company;
+      shoppingCart.subTitle = product.subTitle;
       shoppingCart.create(docId: product.docId);
       Notifications.success('تم اضافة المنتج الي عربة التسوق');
     }

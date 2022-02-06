@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage> {
           itemCount: snapshot.data.length,
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             mainAxisSpacing: 1.2.w,
-            crossAxisSpacing: 1.2.h,
-            maxCrossAxisExtent: 150.h,
+            crossAxisSpacing: 1.3.h,
+            maxCrossAxisExtent: 130.w,
           ),
           itemBuilder: (_, index) {
             Category category = snapshot.data[index];
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage> {
                 onTap: AuthService.isLogin
                     ? () {
                         if (category.carInformation == false &&
-                            widget.appState?.user?.brandCar == null) {
+                            widget.appState?.user?.brandCar.isEmpty) {
                           showMaterialModalBottomSheet(
                             context: context,
                             builder: (context) => SingleChildScrollView(
@@ -62,16 +62,25 @@ class _HomePageState extends State<HomePage> {
                         }
                       },
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      height: 80.h,
-                      width: 80.h,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        shape: BoxShape.circle,
+                    Expanded(
+                      child: Container(
+                        height: 100,
+                        width: 100,
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[200],
+                          shape: BoxShape.circle,
+                        ),
+                        child: Image.asset(
+                          AssetsHelper.engineImage,
+                          fit: BoxFit.contain,
+                          height: 100,
+                          width: 100,
+                        ),
                       ),
-                      child: Image.asset(AssetsHelper.engineImage),
                     ),
                     Text(
                       category.title,

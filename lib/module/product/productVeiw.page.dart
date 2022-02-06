@@ -59,7 +59,7 @@ class ProductViewPage extends StatelessWidget {
                           fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                     leading: Text(
-                      'Ac delco',
+                      product.company,
                       style: GoogleFonts.lato(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.sp,
@@ -78,7 +78,7 @@ class ProductViewPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          '950 امبير',
+                          product.subTitle,
                           style: GoogleFonts.cairo(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.sp,

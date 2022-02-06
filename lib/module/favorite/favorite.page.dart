@@ -57,7 +57,7 @@ class FavoritePage extends StatelessWidget {
                                     fontSize: 22.sp),
                               ),
                               leading: Text(
-                                'Ac delco',
+                                product.company,
                                 style: GoogleFonts.lato(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18.sp,
@@ -75,7 +75,7 @@ class FavoritePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    '950 امبير',
+                                    product.subTitle,
                                     style: GoogleFonts.cairo(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18.sp,
