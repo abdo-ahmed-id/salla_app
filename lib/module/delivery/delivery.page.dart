@@ -104,7 +104,8 @@ class _DeliveryPageState extends State<DeliveryPage> {
       Notifications.error('يجب ادخال اسم المدينة');
     } else {
       await user.save();
-      Modular.to.pushNamed(AppRoutes.confirm, arguments: widget.product);
+      Modular.to.pushNamed(AppRoutes.confirm,
+          arguments: {'product': widget.product, 'user': user});
     }
   }
 }

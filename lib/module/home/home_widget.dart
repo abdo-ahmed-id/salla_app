@@ -30,13 +30,13 @@ class HomeWidget {
                     list: Constants.categoryCars),
                 SizedBox(height: 20.h),
                 popupItem(
-                    onSelect: (value) {
-                      Modular.get<AppBloc>().selectItem(brandSelect: value);
-                    },
-                    mainText: 'اختر فئة السيارة' ?? '',
-                    selectedItem: state.brandSelect,
-                    list:
-                        Constants.cars.map((e) => e.brand.toString()).toList()),
+                  onSelect: (value) {
+                    Modular.get<AppBloc>().selectItem(brandSelect: value);
+                  },
+                  mainText: 'اختر فئة السيارة' ?? '',
+                  selectedItem: state.brandSelect,
+                  list: Constants.brandCars,
+                ),
                 SizedBox(height: 20.h),
                 popupItem(
                     onSelect: (value) {
@@ -44,7 +44,9 @@ class HomeWidget {
                     },
                     mainText: 'اختر الموديل',
                     selectedItem: state.modelSelect ?? '',
-                    list: modelList(state: state, index: index)),
+                    list: modelList(
+                      state,
+                    )),
                 SizedBox(height: 20.h),
                 if (state.modelSelect != null &&
                     state.brandSelect != null &&
@@ -109,9 +111,21 @@ class HomeWidget {
     );
   }
 
-  static List modelList({AppState state, int index}) {
-    if (state.brandSelect == Constants.cars[0].brand) {
-      return Constants.cars[0].model;
+  static List modelList(AppState state) {
+    if (state.brandSelect == 'MG') {
+      return Constants.mGModelCars;
+    } else if (state.brandSelect == 'BYD') {
+      return Constants.bYDModelCars;
+    } else if (state.brandSelect == 'DFSK') {
+      return Constants.dFSKModelCars;
+    } else if (state.brandSelect == 'اسبرانزا') {
+      return Constants.ispranzaModelCars;
+    } else if (state.brandSelect == 'البينا') {
+      return Constants.albenaModelCars;
+    } else if (state.brandSelect == 'الفروميو') {
+      return Constants.alfaromioModelCars;
+    } else if (state.brandSelect == 'اوبل') {
+      return Constants.appleModelCars;
     }
   }
 }

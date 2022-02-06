@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.widget.dart';
+import 'package:salla_app/helper/notifications.dart';
 import 'package:salla_app/module/app/bloc/app.bloc.dart';
+import 'package:salla_app/module/app/service/auth.service.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -17,7 +19,9 @@ class ProfilePage extends StatelessWidget {
           CustomListTile(
             text: 'المعلومات الشخصية',
             onTap: () {
-              Modular.to.pushNamed(AppRoutes.personal);
+              AuthService.isLogin
+                  ? Modular.to.pushNamed(AppRoutes.personal)
+                  : Notifications.error('يجب تسجيل الدخول');
             },
             icon: Icons.person,
           ),

@@ -42,7 +42,8 @@ class AppModule extends Module {
     ChildRoute(AppRoutes.search, child: (_, __) => SearchPage()),
     ChildRoute(AppRoutes.confirm,
         child: (_, args) => ConfirmProductPage(
-              product: args.data,
+              product: args.data['product'],
+              user: args.data['user'],
             )),
     ChildRoute(AppRoutes.thank, child: (_, __) => ThankPage()),
     ChildRoute(AppRoutes.personal, child: (_, __) => PersonalPage()),
