@@ -1,11 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firestore_model/firestore_model.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:salla_app/data/models/favoriets.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
+import 'package:salla_app/helper/app.theme.dart';
+import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/notifications.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/app/service/auth.service.dart';
@@ -52,28 +55,80 @@ class AppBloc extends Cubit<AppState> {
     _authService.logout();
   }
 
-  void createAccount({UserModel userModel}) async {
+  void createAccount({context, UserModel userModel}) async {
     User user =
         await _authService.register(userModel.email, userModel.password);
     if (user != null) {
-      Modular.to.pushReplacementNamed(AppRoutes.mainHome);
-      print('userName${user.displayName}');
+      userModel.docId = user.uid;
       await userModel.create(docId: user.uid);
-      Notifications.success('تم انشاء حسابك بنجاح شكرا لك');
-      getUserData();
+      await _authService.logout();
+      Notifications.dialog(
+        context,
+        dismissible: false,
+        child: Dialog(
+          child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const ListTile(
+                  leading: Icon(
+                    Icons.info_outline,
+                    color: Colors.white,
+                  ),
+                  title: Text(
+                    'يجب التحقق من البريد الالكتروني',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+                CustomTextButton(
+                  color: AppTheme.primaryColor,
+                  text: 'تسجيل الدخول',
+                  onPressed: () {
+                    Modular.to.pushNamed(AppRoutes.login);
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+      print('loading verify email');
     } else {
       print('user not found');
     }
   }
 
-  void signIn(String email, String password) async {
+  void signIn(context, String email, String password) async {
     User user = await _authService.signIn(email, password);
     if (user != null) {
-      Modular.to.pushReplacementNamed(AppRoutes.mainHome);
-      Notifications.success('تم تسجيل الدخول بنجاح');
-      getUserData();
-    } else {
-      print('user not found');
+      await getUserData();
+      print('provider: ${user.providerData.single.providerId}');
+      if (user.emailVerified == true) {
+        print(user.emailVerified);
+        print('finish verify email');
+        Notifications.success('Login Sucsses');
+        Modular.to.pushReplacementNamed(AppRoutes.mainHome);
+      } else {
+        await _authService.logout();
+        print(user.emailVerified);
+        Notifications.dialog(
+          context,
+          dismissible: true,
+          child: Dialog(
+            child: Container(
+              // height: 120,
+              child: const ListTile(
+                leading: Icon(Icons.info_outline),
+                title: Text(
+                  'You must verify your email',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ),
+          ),
+        );
+        print('loading verify email');
+      }
     }
   }
 

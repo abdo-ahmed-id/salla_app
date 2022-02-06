@@ -11,7 +11,7 @@ import 'package:salla_app/module/app/bloc/app.bloc.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
 
 class HomeWidget {
-  static Widget bottomSheet() {
+  static Widget bottomSheet(int index) {
     return BlocBuilder<AppBloc, AppState>(
         bloc: Modular.get<AppBloc>(),
         builder: (context, state) {
@@ -35,7 +35,8 @@ class HomeWidget {
                     },
                     mainText: 'اختر فئة السيارة' ?? '',
                     selectedItem: state.brandSelect,
-                    list: Constants.brandCars),
+                    list:
+                        Constants.cars.map((e) => e.brand.toString()).toList()),
                 SizedBox(height: 20.h),
                 popupItem(
                     onSelect: (value) {
@@ -43,7 +44,7 @@ class HomeWidget {
                     },
                     mainText: 'اختر الموديل',
                     selectedItem: state.modelSelect ?? '',
-                    list: modelList(state)),
+                    list: modelList(state: state, index: index)),
                 SizedBox(height: 20.h),
                 if (state.modelSelect != null &&
                     state.brandSelect != null &&
@@ -108,12 +109,9 @@ class HomeWidget {
     );
   }
 
-  static List modelList(AppState state) {
-    if (state.brandSelect == 'MG') {
-      return Constants.mGModelCars;
-    }
-    if (state.brandSelect == 'BYD') {
-      return Constants.bYDModelCars;
+  static List modelList({AppState state, int index}) {
+    if (state.brandSelect == Constants.cars[0].brand) {
+      return Constants.cars[0].model;
     }
   }
 }

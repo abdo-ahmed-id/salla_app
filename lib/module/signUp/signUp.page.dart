@@ -6,6 +6,7 @@ import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/helper/notifications.dart';
 import 'package:salla_app/module/app/bloc/app.bloc.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -20,6 +21,7 @@ class _SignUpPageState extends State<SignUpPage> {
   String _email;
 
   String _password;
+  String _confirmPassword;
 
   String _phoneNum;
   bool checkedValue;
@@ -93,7 +95,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   CustomTextForm(
                     color: Colors.white,
                     onChanged: (value) {
-                      _password = value;
+                      _confirmPassword = value;
                     },
                     hintText: 'تاكيد كلمة المرور',
                     keyboardType: TextInputType.text,
@@ -110,13 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       if (!currentFocus.hasPrimaryFocus) {
                         currentFocus.unfocus();
                       }
-                      _appBloc.createAccount(
-                          userModel: UserModel(
-                        email: _email,
-                        password: _password,
-                        numPhone: _phoneNum,
-                        displayName: _userName,
-                      ));
+                      validationInput(context);
                     },
                   ),
                   CustomTextButton(
@@ -134,5 +130,29 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
       ),
     );
+  }
+
+  void validationInput(context) async {
+    if (_email == null || !_email.contains('@')) {
+      Notifications.error('please enter correct email');
+    } else if (_userName == null) {
+      Notifications.error('please enter correct username');
+    } else if (_phoneNum == null ||
+        !_phoneNum.contains('+20') ||
+        _phoneNum.length != 13) {
+      Notifications.error('please enter correct phoneNum');
+    } else if (_password == null ||
+        _password.length < 6 ||
+        _confirmPassword != _password) {
+      Notifications.error('please enter correct password');
+    } else {
+      Modular.get<AppBloc>().createAccount(
+          context: context,
+          userModel: UserModel(
+              displayName: _userName,
+              email: _email,
+              numPhone: _phoneNum,
+              password: _password));
+    }
   }
 }

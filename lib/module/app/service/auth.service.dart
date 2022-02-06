@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:salla_app/helper/notifications.dart';
 
 class AuthService {
   static bool get isLogin => auth.currentUser != null;
@@ -23,14 +24,14 @@ class AuthService {
     } on FirebaseAuthException catch (e) {
       print('register error ${e.toString()}');
       if (e.code == 'weak-password') {
-        // Notifications.error(e.message);
+        Notifications.error(e.message);
       } else if (e.code == 'email-already-in-use') {
-        // Notifications.error(e.message);
+        Notifications.error(e.message);
       }
     } catch (e) {
       print('register error ${e.toString()}');
 
-      // Notifications.error(e.message);
+      Notifications.error(e.message);
     }
     return null;
   }
@@ -44,13 +45,13 @@ class AuthService {
       return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
-        // Notifications.error(e.message);
+        Notifications.error(e.message);
       } else if (e.code == 'user-not-found') {
-        // Notifications.error(e.message);
+        Notifications.error(e.message);
       } else if (e.code == 'wrong-password') {
-        // Notifications.error(e.message);
+        Notifications.error(e.message);
       } else if (e.code == 'user-disabled') {
-        // Notifications.error(e.message);
+        Notifications.error(e.message);
       }
     } catch (e) {
       // Notifications.error(e.message);

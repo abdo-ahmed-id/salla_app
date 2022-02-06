@@ -7,6 +7,7 @@ import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/helper/notifications.dart';
 import 'package:salla_app/module/app/bloc/app.bloc.dart';
 
 class LoginPage extends StatelessWidget {
@@ -86,8 +87,8 @@ class LoginPage extends StatelessWidget {
                           if (!currentFocus.hasPrimaryFocus) {
                             currentFocus.unfocus();
                           }
-                          _appBloc.signIn(_email, _password);
-                          // validationInput(context);
+
+                          validationInput(context);
                         },
                       ),
                     ),
@@ -114,5 +115,15 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void validationInput(context) {
+    if (_email == null || _email.isEmpty || !_email.contains('@')) {
+      Notifications.error('من فضلك قم بادخال بريد الكتروني صحيح');
+    } else if (_password == null || _password.isEmpty || _password.length < 6) {
+      Notifications.error('من فضلك قم بادخال كلمه مرور صحيحة');
+    } else {
+      Modular.get<AppBloc>().signIn(context, _email, _password);
+    }
   }
 }

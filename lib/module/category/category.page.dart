@@ -33,7 +33,7 @@ class CategoryPage extends StatelessWidget {
         ),
       ),
       body: ModelStreamGetBuilder<Product>(
-          query: category.carInformation == false
+          query: category?.carInformation == false
               ? (q) => q
                   .where('categoryCar', isEqualTo: _appState.user.categoryCar)
                   // .where('brandCar', isEqualTo: _appState.user.brandCar)

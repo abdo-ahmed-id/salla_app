@@ -12,7 +12,6 @@ import 'package:salla_app/module/app/bloc/app.bloc.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/app/service/auth.service.dart';
 import 'package:salla_app/module/home/home_widget.dart';
-import 'package:salla_app/module/login/login.page.dart';
 
 class HomePage extends StatefulWidget {
   AppState appState = Modular.get<AppBloc>().state;
@@ -46,7 +45,7 @@ class _HomePageState extends State<HomePage> {
                             context: context,
                             builder: (context) => SingleChildScrollView(
                               controller: ModalScrollController.of(context),
-                              child: HomeWidget.bottomSheet(),
+                              child: HomeWidget.bottomSheet(index),
                             ),
                           );
                         } else {
@@ -56,13 +55,7 @@ class _HomePageState extends State<HomePage> {
                       }
                     : () {
                         if (category.carInformation == false) {
-                          showMaterialModalBottomSheet(
-                            context: context,
-                            builder: (context) => SingleChildScrollView(
-                              controller: ModalScrollController.of(context),
-                              child: LoginPage(),
-                            ),
-                          );
+                          Modular.to.pushNamed(AppRoutes.login);
                         } else {
                           Modular.to.pushNamed(AppRoutes.category,
                               arguments: category);
