@@ -8,6 +8,7 @@ import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
+import 'package:salla_app/helper/notifications.dart';
 
 class DeliveryPage extends StatefulWidget {
   final ShoppingCart product;
@@ -81,23 +82,29 @@ class _DeliveryPageState extends State<DeliveryPage> {
               SizedBox(height: 60.h),
               Center(
                 child: CustomButton(
-                  text: user.streetName != null ? 'تاكيد' : 'اضافة عنوان',
-                  backgroundColor: AppTheme.primaryColor,
-                  onPressed: user.streetName != null
-                      ? () {
-                          Modular.to.pushNamed(AppRoutes.confirm);
-                        }
-                      : () async {
-                          await user.save();
-                          Modular.to.pushNamed(AppRoutes.confirm,
-                              arguments: widget.product);
-                        },
-                ),
+                    text: user.streetName != null ? 'تاكيد' : 'اضافة عنوان',
+                    backgroundColor: AppTheme.primaryColor,
+                    onPressed: () {
+                      validationInput(user);
+                    }),
               ),
             ],
           ),
         ),
       );
     });
+  }
+
+  void validationInput(UserModel user) async {
+    if (user.streetName == null || user.streetName.isEmpty) {
+      Notifications.error('يجب ادخال اسم الشارع');
+    } else if (user.areaName == null || user.areaName.isEmpty) {
+      Notifications.error('يجب ادخال اسم المنطقة');
+    } else if (user.cityName == null || user.cityName.isEmpty) {
+      Notifications.error('يجب ادخال اسم المدينة');
+    } else {
+      await user.save();
+      Modular.to.pushNamed(AppRoutes.confirm, arguments: widget.product);
+    }
   }
 }

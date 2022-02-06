@@ -224,13 +224,9 @@ class ConfirmProductPage extends StatelessWidget {
               text: 'شراء',
               textColor: Colors.black,
               onPressed: () async {
-                if (appBloc.state.user.streetName == null) {
-                  Modular.to.pushNamed(AppRoutes.delivery, arguments: product);
-                } else {
-                  Modular.to.pushNamed(AppRoutes.thank);
-                  product.delete(docId: product.docId);
-                  appBloc.changeIndexTo(0);
-                }
+                Modular.to.pushNamed(AppRoutes.thank);
+                product.delete(docId: product.docId);
+                appBloc.changeIndexTo(0);
               },
             ),
           ],

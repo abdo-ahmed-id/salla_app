@@ -195,13 +195,19 @@ class ShoppingCartPage extends StatelessWidget {
                                     text: 'متابعة',
                                     textColor: Colors.black,
                                     onPressed: () {
-                                      Modular.to.pushNamed(AppRoutes.confirm,
-                                          arguments: product);
+                                      state.user.streetName != null
+                                          ? Modular.to.pushNamed(
+                                              AppRoutes.confirm,
+                                              arguments: product)
+                                          : Modular.to.pushNamed(
+                                              AppRoutes.delivery,
+                                              arguments: product);
                                     },
                                   ),
                                   SizedBox(
                                     width: 6.w,
                                   ),
+/*
                                   Card(
                                     color: Colors.grey[200],
                                     child: IconButton(
@@ -223,6 +229,7 @@ class ShoppingCartPage extends StatelessWidget {
                                       },
                                     ),
                                   )
+*/
                                 ],
                               ),
                               const Divider(
