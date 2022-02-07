@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/data/models/product.dart';
+import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
@@ -121,8 +123,10 @@ class ProductWidget extends StatelessWidget {
                 text: 'اضافة الي السلة',
                 textColor: Colors.black,
                 onPressed: () {
-                  appBloc.addShoppingCart(
-                      userModel: state.user, product: product);
+                  AuthService.isLogin
+                      ? appBloc.addShoppingCart(
+                          userModel: state.user, product: product)
+                      : Modular.to.pushNamed(AppRoutes.login);
                 },
               ),
               SizedBox(

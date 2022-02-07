@@ -231,11 +231,14 @@ class ConfirmProductPage extends StatelessWidget {
                 AppState state = appBloc.state;
                 Order order = Order(
                   userName: user.displayName,
+                  email: user.email,
                   phoneNum: user.numPhone,
                   streetName: user.streetName,
                   areaName: user.areaName,
                   cityName: user.cityName,
                   amount: product.amount,
+                  productTitle: product.title,
+                  company: product.company,
                   totalPrice: product.amount * int.parse(product.price),
                 );
                 await order.create();
