@@ -28,7 +28,7 @@ class ForgetPasswordPage extends StatelessWidget {
               children: [
                 SizedBox(height: 80.h),
                 Text(
-                  'Forget Password',
+                  'اعادة كلمة المرور',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 40.sp,
@@ -36,7 +36,7 @@ class ForgetPasswordPage extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h),
                 CustomTextForm(
-                  hintText: 'Your Email',
+                  hintText: 'بريدك الالكتروني',
                   color: Colors.white,
                   onChanged: (value) {
                     _email = value;
@@ -44,7 +44,7 @@ class ForgetPasswordPage extends StatelessWidget {
                 ),
                 SizedBox(height: 15.h),
                 CustomTextButton(
-                  text: 'I Remember Your Password ?',
+                  text: 'لقد تذكرت كلمة المرور',
                   onPressed: () {
                     print('email$_email');
                     Modular.to.pushReplacementNamed(AppRoutes.login);
@@ -52,7 +52,7 @@ class ForgetPasswordPage extends StatelessWidget {
                 ),
                 SizedBox(height: 10.h),
                 CustomTextButton(
-                  text: 'Create New Password',
+                  text: 'انشاء كلمة مرور جديدة',
                   onPressed: () {
                     try {
                       FocusScopeNode currentFocus = FocusScope.of(context);
@@ -73,13 +73,25 @@ class ForgetPasswordPage extends StatelessWidget {
                             .then((value) => Notifications.success(
                                 'من فضلك قم بزيارة بريدك الالكتروني'))
                             .catchError((e) {
-                          print('error$e');
-                          Notifications.error('error $e');
+                          print('error${e}');
+
+                          // Notifications.error('error $e');
                         });
                       }
                     } on FirebaseAuthException catch (e) {
-                      print('error $e');
+                      if (e.code == 'invalid-email') {
+                        Notifications.error(e.message);
+                      } else if (e.code == 'user-not-found') {
+                        Notifications.error(e.message);
+                      } else if (e.code == 'wrong-password') {
+                        Notifications.error(e.message);
+                      } else if (e.code == 'user-disabled') {
+                        Notifications.error(e.message);
+                      }
+                    } catch (e) {
+                      Notifications.error(e.message);
                     }
+                    return null;
                   },
                 )
               ],

@@ -75,7 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   CustomTextForm(
                     color: Colors.white,
                     // initialValue: '+20',
-                    maxLength: 11,
+                    // maxLength: 11,
                     onChanged: (value) {
                       _phoneNum = value;
                     },
@@ -135,15 +135,15 @@ class _SignUpPageState extends State<SignUpPage> {
 
   void validationInput(context) async {
     if (_email == null || !_email.contains('@')) {
-      Notifications.error('please enter correct email');
+      Notifications.error('يرجي ادخال بريد الكتروني صحيح');
     } else if (_userName == null) {
-      Notifications.error('please enter correct username');
-    } else if (_phoneNum == null || _phoneNum.length != 13) {
-      Notifications.error('please enter correct phoneNum');
+      Notifications.error('يرجي ادخال اسمك بشكل صحيح');
+    } else if (_phoneNum == null) {
+      Notifications.error('يرجي ادخال رقم محمول صحيح');
     } else if (_password == null ||
         _password.length < 6 ||
         _confirmPassword != _password) {
-      Notifications.error('please enter correct password');
+      Notifications.error('يرجي ادخال كلمة مرور صحيحة');
     } else {
       Modular.get<AppBloc>().createAccount(
           context: context,
