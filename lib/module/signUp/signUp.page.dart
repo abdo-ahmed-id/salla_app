@@ -74,7 +74,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(height: 15.h),
                   CustomTextForm(
                     color: Colors.white,
-                    initialValue: '+20',
+                    // initialValue: '+20',
+                    maxLength: 11,
                     onChanged: (value) {
                       _phoneNum = value;
                     },
@@ -137,9 +138,7 @@ class _SignUpPageState extends State<SignUpPage> {
       Notifications.error('please enter correct email');
     } else if (_userName == null) {
       Notifications.error('please enter correct username');
-    } else if (_phoneNum == null ||
-        !_phoneNum.contains('+20') ||
-        _phoneNum.length != 13) {
+    } else if (_phoneNum == null || _phoneNum.length != 13) {
       Notifications.error('please enter correct phoneNum');
     } else if (_password == null ||
         _password.length < 6 ||
