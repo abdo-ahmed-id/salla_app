@@ -125,6 +125,10 @@ class _DeliveryPageState extends State<DeliveryPage> {
       Notifications.error('يجب ادخال اسم المنطقة');
     } else if (user.cityName == null || user.cityName.isEmpty) {
       Notifications.error('يجب ادخال اسم المدينة');
+    } else if (user.buildingNum == null || user.buildingNum.isEmpty) {
+      Notifications.error('يجب ادخال رقم العمارة');
+    } else if (user.flatNum == null || user.flatNum.isEmpty) {
+      Notifications.error('يجب ادخال رقم الشقة');
     } else {
       await user.save();
       Modular.to.pushNamed(AppRoutes.confirm,
