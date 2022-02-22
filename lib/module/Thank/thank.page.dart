@@ -19,7 +19,7 @@ class _ThankPageState extends State<ThankPage> {
   void initState() {
     super.initState();
 
-    Timer(Duration(seconds: 3), () => Modular.to.navigate(AppRoutes.splash));
+    Timer(Duration(seconds: 3), () => Modular.to.navigate(AppRoutes.mainHome));
   }
 
   @override
@@ -27,13 +27,28 @@ class _ThankPageState extends State<ThankPage> {
     return Scaffold(
       // backgroundColor: Colors.deepOrange,
       body: Center(
-        child: Text(
-          'شكرا لك',
-          style: GoogleFonts.cairo(
-            fontSize: 60,
-            fontWeight: FontWeight.bold,
-            letterSpacing: 3,
-            foreground: Paint()..shader = linearGradient,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'شكرا لك',
+                style: GoogleFonts.cairo(
+                  fontSize: 60,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 3,
+                  foreground: Paint()..shader = linearGradient,
+                ),
+              ),
+              Text(
+                'سيصلك الطلب خلال 48 ساعه سيقوم احد موظفينا بالتواصل معك',
+                style: GoogleFonts.cairo(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
           ),
         ),
       ),

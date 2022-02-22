@@ -34,84 +34,87 @@ class _DeliveryPageState extends State<DeliveryPage> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: 40.h),
-              user.areaName == null
-                  ? Text(
-                      ' ${user.displayName}\n لم تقم باضافة عنوان حتي الان',
-                      style: GoogleFonts.cairo(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                SizedBox(height: 40.h),
+                user.areaName == null
+                    ? Text(
+                        ' ${user.displayName}\n لم تقم باضافة عنوان حتي الان',
+                        style: GoogleFonts.cairo(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                        ),
+                      )
+                    : Text(
+                        'عنوانك : ${user.cityName} - ${user.areaName} - ${user.streetName} ',
+                        style: GoogleFonts.cairo(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.sp,
+                        ),
                       ),
-                    )
-                  : Text(
-                      'عنوانك : ${user.cityName} - ${user.areaName} - ${user.streetName} ',
-                      style: GoogleFonts.cairo(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.sp,
-                      ),
-                    ),
-              SizedBox(height: 15.h),
-              CustomTextForm(
-                initialValue: user.streetName ?? '',
-                color: Colors.black,
-                onChanged: (value) {
-                  user.streetName = value;
-                },
-                hintText: 'اسم الشارع',
-                keyboardType: TextInputType.text,
-              ),
-              SizedBox(height: 15.h),
-              CustomTextForm(
-                initialValue: user.cityName ?? '',
-                color: Colors.black,
-                onChanged: (value) {
-                  user.cityName = value;
-                },
-                hintText: 'اسم المدينة',
-                keyboardType: TextInputType.text,
-              ),
-              SizedBox(height: 15.h),
-              CustomTextForm(
-                initialValue: user.areaName ?? '',
-                color: Colors.black,
-                onChanged: (value) {
-                  user.areaName = value;
-                },
-                hintText: 'اسم المنطقة',
-                keyboardType: TextInputType.text,
-              ),
-              SizedBox(height: 15.h),
-              CustomTextForm(
-                initialValue: user.buildingNum ?? '',
-                color: Colors.black,
-                onChanged: (value) {
-                  user.buildingNum = value;
-                },
-                hintText: 'رقم العمارة',
-                keyboardType: TextInputType.text,
-              ),
-              SizedBox(height: 15.h),
-              CustomTextForm(
-                initialValue: user.flatNum ?? '',
-                color: Colors.black,
-                onChanged: (value) {
-                  user.flatNum = value;
-                },
-                hintText: 'رقم الشقة',
-                keyboardType: TextInputType.text,
-              ),
-              SizedBox(height: 60.h),
-              Center(
-                child: CustomButton(
-                    text: user.streetName != null ? 'تاكيد' : 'اضافة عنوان',
-                    backgroundColor: AppTheme.primaryColor,
-                    onPressed: () {
-                      validationInput(user);
-                    }),
-              ),
-            ],
+                SizedBox(height: 15.h),
+                CustomTextForm(
+                  initialValue: user.streetName ?? '',
+                  color: Colors.black,
+                  onChanged: (value) {
+                    user.streetName = value;
+                  },
+                  hintText: 'اسم الشارع',
+                  keyboardType: TextInputType.text,
+                ),
+                SizedBox(height: 15.h),
+                CustomTextForm(
+                  initialValue: user.cityName ?? '',
+                  color: Colors.black,
+                  onChanged: (value) {
+                    user.cityName = value;
+                  },
+                  hintText: 'اسم المدينة',
+                  keyboardType: TextInputType.text,
+                ),
+                SizedBox(height: 15.h),
+                CustomTextForm(
+                  initialValue: user.areaName ?? '',
+                  color: Colors.black,
+                  onChanged: (value) {
+                    user.areaName = value;
+                  },
+                  hintText: 'اسم المنطقة',
+                  keyboardType: TextInputType.text,
+                ),
+                SizedBox(height: 15.h),
+                CustomTextForm(
+                  initialValue: user.buildingNum ?? '',
+                  color: Colors.black,
+                  onChanged: (value) {
+                    user.buildingNum = value;
+                  },
+                  hintText: 'رقم العمارة',
+                  keyboardType: TextInputType.text,
+                ),
+                SizedBox(height: 15.h),
+                CustomTextForm(
+                  initialValue: user.flatNum ?? '',
+                  color: Colors.black,
+                  onChanged: (value) {
+                    user.flatNum = value;
+                  },
+                  hintText: 'رقم الشقة',
+                  keyboardType: TextInputType.text,
+                ),
+                SizedBox(height: 60.h),
+                Center(
+                  child: CustomButton(
+                      text: user.streetName != null ? 'تاكيد' : 'اضافة عنوان',
+                      backgroundColor: AppTheme.primaryColor,
+                      onPressed: () {
+                        validationInput(user);
+                      }),
+                ),
+              ],
+            ),
           ),
         ),
       );
