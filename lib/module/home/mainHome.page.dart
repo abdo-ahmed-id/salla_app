@@ -15,6 +15,18 @@ import 'package:salla_app/module/shopping_cart/shopping_cart.page.dart';
 class MainHomePage extends StatelessWidget {
   const MainHomePage({Key key}) : super(key: key);
 
+  String title(AppState state) {
+    if (state.currentIndex == 0) {
+      return 'الرئيسية';
+    } else if (state.currentIndex == 1) {
+      return 'السلة';
+    } else if (state.currentIndex == 2) {
+      return 'المفضلة';
+    } else {
+      return 'حسابك';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppBloc, AppState>(
@@ -23,7 +35,7 @@ class MainHomePage extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               title: Text(
-                'الرئيسية',
+                title(state),
                 style: GoogleFonts.cairo(
                     fontWeight: FontWeight.bold, fontSize: 22),
               ),
