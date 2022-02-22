@@ -35,9 +35,8 @@ class FavoritePage extends StatelessWidget {
                   Favoriets product = products[index];
                   return InkWell(
                     onTap: () {
-                      Modular.to.pushNamed(
-                        AppRoutes.product,
-                      );
+                      Modular.to
+                          .pushNamed(AppRoutes.product, arguments: product);
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

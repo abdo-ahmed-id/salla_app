@@ -100,15 +100,6 @@ class LoginPage extends StatelessWidget {
                         Modular.to.pushReplacementNamed(AppRoutes.signUp);
                       },
                     ),
-                    /* Center(
-                      child: CustomTextButton(
-                        text: "Skip",
-                        size: 18,
-                        onPressed: () {
-                          Modular.to.pushReplacementNamed(AppRoutes.mainHome);
-                        },
-                      ),
-                    ),*/
                   ],
                 ),
               )),

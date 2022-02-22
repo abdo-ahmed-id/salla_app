@@ -84,7 +84,7 @@ class AppBloc extends Cubit<AppState> {
                   color: AppTheme.primaryColor,
                   text: 'تسجيل الدخول',
                   onPressed: () {
-                    Modular.to.pushNamed(AppRoutes.login);
+                    Modular.to.pushReplacementNamed(AppRoutes.login);
                   },
                 ),
               ],
@@ -106,7 +106,7 @@ class AppBloc extends Cubit<AppState> {
       if (user.emailVerified == true) {
         print(user.emailVerified);
         print('finish verify email');
-        Notifications.success('Login Sucsses');
+        Notifications.success('تم تسجيل الدخول بنجاح');
         Modular.to.pushReplacementNamed(AppRoutes.mainHome);
       } else {
         await _authService.logout();

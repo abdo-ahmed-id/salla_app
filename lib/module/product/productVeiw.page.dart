@@ -3,14 +3,11 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/helper/app.theme.dart';
-import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
 
-import '../../data/models/product.dart';
-
 class ProductViewPage extends StatelessWidget {
-  final Product product;
-  const ProductViewPage({this.product});
+  dynamic product;
+  ProductViewPage({this.product});
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +42,11 @@ class ProductViewPage extends StatelessWidget {
             Container(
               height: 500.h,
               width: double.infinity,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(40),
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(40),
+                    topRight: Radius.circular(40)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,31 +155,31 @@ class ProductViewPage extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  Spacer(),
-                  Container(
-                    height: 70,
-                    color: Colors.grey[400],
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GradientButton(
-                          text: 'اضافة الي السلة',
-                          textColor: Colors.black,
-                          onPressed: () {},
-                        ),
-                        SizedBox(
-                          width: 6.w,
-                        ),
-                        Card(
-                          color: Colors.grey[200],
-                          child: IconButton(
-                            icon: Icon(Icons.favorite),
-                            onPressed: () {},
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  // Spacer(),
+                  // Container(
+                  //   height: 70,
+                  //   color: Colors.grey[400],
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //     children: [
+                  //       GradientButton(
+                  //         text: 'اضافة الي السلة',
+                  //         textColor: Colors.black,
+                  //         onPressed: () {},
+                  //       ),
+                  //       SizedBox(
+                  //         width: 6.w,
+                  //       ),
+                  //       Card(
+                  //         color: Colors.grey[200],
+                  //         child: IconButton(
+                  //           icon: Icon(Icons.favorite),
+                  //           onPressed: () {},
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
