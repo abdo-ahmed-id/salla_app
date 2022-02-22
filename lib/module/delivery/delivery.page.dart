@@ -54,6 +54,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                     ),
               SizedBox(height: 15.h),
               CustomTextForm(
+                initialValue: user.streetName ?? '',
                 color: Colors.black,
                 onChanged: (value) {
                   user.streetName = value;
@@ -63,6 +64,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
               ),
               SizedBox(height: 15.h),
               CustomTextForm(
+                initialValue: user.cityName ?? '',
                 color: Colors.black,
                 onChanged: (value) {
                   user.cityName = value;
@@ -72,11 +74,32 @@ class _DeliveryPageState extends State<DeliveryPage> {
               ),
               SizedBox(height: 15.h),
               CustomTextForm(
+                initialValue: user.areaName ?? '',
                 color: Colors.black,
                 onChanged: (value) {
                   user.areaName = value;
                 },
                 hintText: 'اسم المنطقة',
+                keyboardType: TextInputType.text,
+              ),
+              SizedBox(height: 15.h),
+              CustomTextForm(
+                initialValue: user.buildingNum ?? '',
+                color: Colors.black,
+                onChanged: (value) {
+                  user.buildingNum = value;
+                },
+                hintText: 'رقم العمارة',
+                keyboardType: TextInputType.text,
+              ),
+              SizedBox(height: 15.h),
+              CustomTextForm(
+                initialValue: user.flatNum ?? '',
+                color: Colors.black,
+                onChanged: (value) {
+                  user.flatNum = value;
+                },
+                hintText: 'رقم الشقة',
                 keyboardType: TextInputType.text,
               ),
               SizedBox(height: 60.h),

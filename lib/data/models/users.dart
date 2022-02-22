@@ -13,6 +13,8 @@ class UserModel extends FirestoreModel<UserModel> {
   String brandCar;
   String categoryCar;
   String modelCar;
+  String buildingNum;
+  String flatNum;
 
   UserModel({
     this.displayName,
@@ -44,6 +46,8 @@ class UserModel extends FirestoreModel<UserModel> {
         'brandCar': this.brandCar,
         'categoryCar': this.categoryCar,
         'modelCar': this.modelCar,
+        'buildingNum': this.buildingNum,
+        'flatNum': this.flatNum,
       };
 
   UserModel.fromMap(Map<String, dynamic> map) {
@@ -57,6 +61,8 @@ class UserModel extends FirestoreModel<UserModel> {
     this.brandCar = map['brandCar'];
     this.categoryCar = map['categoryCar'];
     this.modelCar = map['modelCar'];
+    this.buildingNum = map['buildingNum'];
+    this.flatNum = map['flatNum'];
   }
 
   @override
