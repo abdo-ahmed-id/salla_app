@@ -63,7 +63,7 @@ class DialogWidget extends StatelessWidget {
                   userModel.displayName = value;
                 },
                 initialValue: userModel?.displayName,
-                hintText: 'Name',
+                hintText: 'الاسم بالكامل',
                 keyboardType: TextInputType.text,
               ),
               PrimaryTextField(
@@ -71,7 +71,7 @@ class DialogWidget extends StatelessWidget {
                   userModel.email = value;
                 },
                 initialValue: userModel?.email,
-                hintText: 'Email',
+                hintText: 'البريد الالكتروني',
                 keyboardType: TextInputType.emailAddress,
               ),
               PrimaryTextField(
@@ -79,15 +79,10 @@ class DialogWidget extends StatelessWidget {
                   userModel.numPhone = value;
                 },
                 initialValue:
-                    userModel.numPhone == '' ? '+20' : userModel?.numPhone,
-                hintText: 'Phone',
+                    userModel.numPhone == '' ? '' : userModel?.numPhone,
+                hintText: 'رقم المحمول',
                 keyboardType: TextInputType.phone,
               ),
-              // InputDatePickerFormField(
-              //   firstDate: DateTime.parse('1950-10-08'),
-              //   lastDate: DateTime.parse('2040-10-08'),
-              //   initialDate: DateTime.now(),
-              // ),
             ],
           ),
         ));
@@ -98,9 +93,7 @@ class DialogWidget extends StatelessWidget {
       Notifications.error('please enter correct email'.tr());
     } else if (userModel.displayName == null) {
       Notifications.error('please enter correct username'.tr());
-    } else if (userModel.numPhone == null ||
-        !userModel.numPhone.contains('+20') ||
-        userModel.numPhone.length != 13) {
+    } else if (userModel.numPhone == null || userModel.numPhone.length != 13) {
       Notifications.error('please enter correct phoneNum'.tr());
     } else {
       await userModel.save(setOptions: SetOptions(merge: true));
