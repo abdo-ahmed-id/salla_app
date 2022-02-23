@@ -10,12 +10,14 @@ class Order extends FirestoreModel<Order> {
 
   Order({this.user, this.products, this.orderNum});
   Order.fromMap(Map<String, dynamic> map) {
-    this.orderNum = map['orderNum'];
-    this.user =
-        map['user'] is Map ? UserModel.fromMap(map['user']) : UserModel();
-    this.products = new List();
-    if (map['products'] is List) {}
-    map['products'];
+    orderNum = map['orderNum'];
+    user = map['user'] is Map ? UserModel.fromMap(map['user']) : UserModel();
+    products = <ShoppingCart>[];
+    if (map['products'] is List) {
+      map['products'].forEach((item) {
+        products.add(ShoppingCart.fromMap(item));
+      });
+    }
   }
   @override
   ResponseBuilder<Order> get responseBuilder => (map) => Order.fromMap(map);
