@@ -190,6 +190,17 @@ class ShoppingCartPage extends StatelessWidget {
                                         fontSize: 18.sp,
                                         color: AppTheme.primaryColor),
                                   ),
+                                  const Spacer(),
+                                  IconButton(
+                                    onPressed: () {
+                                      product.delete();
+                                    },
+                                    icon: Icon(
+                                      Icons.delete,
+                                      color: Colors.red,
+                                      size: 40.sp,
+                                    ),
+                                  ),
                                 ],
                               ),
                               const Divider(

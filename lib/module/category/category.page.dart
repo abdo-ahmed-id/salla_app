@@ -23,6 +23,9 @@ class CategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(_appState.user.brandCar);
+    print(_appState.user.modelCar);
+    print(_appState.user.categoryCar);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primaryColor,
@@ -37,7 +40,7 @@ class CategoryPage extends StatelessWidget {
               ? (q) => q
                   .where('categoryCar', isEqualTo: _appState.user.categoryCar)
                   .where('brandCar', isEqualTo: _appState.user.brandCar)
-              // .where('modelCar', isEqualTo: _appState.user.modelCar)
+                  .where('modelCar', isEqualTo: _appState.user.modelCar)
               : (q) => q.where('category', isEqualTo: category.title),
           onLoading: () => const Center(child: CircularProgressIndicator()),
           onEmpty: () => const Center(child: Text('لا توجد منتجات حتي الان')),

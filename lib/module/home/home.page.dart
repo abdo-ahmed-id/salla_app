@@ -40,7 +40,8 @@ class _HomePageState extends State<HomePage> {
                 onTap: AuthService.isLogin
                     ? () {
                         if (category.carInformation == false &&
-                            widget.appState?.user?.brandCar == '') {
+                            widget.appState?.user?.brandCar == '' &&
+                            widget.appState?.user?.brandCar == null) {
                           showMaterialModalBottomSheet(
                             context: context,
                             builder: (context) => SingleChildScrollView(

@@ -140,8 +140,17 @@ class FavoritePage extends StatelessWidget {
                                 textColor: Colors.black,
                                 onPressed: () {},
                               ),
-                              SizedBox(
-                                width: 6.w,
+                              const Spacer(),
+                              IconButton(
+                                onPressed: () {
+                                  product.delete();
+                                  Modular.get<AppBloc>().state.user;
+                                },
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                  size: 40.sp,
+                                ),
                               ),
                             ],
                           ),

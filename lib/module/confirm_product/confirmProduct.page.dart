@@ -3,6 +3,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salla_app/data/models/order.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
@@ -10,7 +11,6 @@ import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
 import 'package:salla_app/module/app/bloc/app.bloc.dart';
-import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/confirm_product/confirm.product_widget.dart';
 
 class ConfirmProductPage extends StatelessWidget {
@@ -228,20 +228,11 @@ class ConfirmProductPage extends StatelessWidget {
               text: 'شراء',
               textColor: Colors.black,
               onPressed: () async {
-                AppState state = appBloc.state;
-                /*Order order = Order(
-                  userName: user.displayName,
-                  email: user.email,
-                  phoneNum: user.numPhone,
-                  streetName: user.streetName,
-                  areaName: user.areaName,
-                  cityName: user.cityName,
-                  amount: product.amount,
-                  productTitle: product.title,
-                  company: product.company,
-                  totalPrice: product.amount * int.parse(product.price),
+                Order order = Order(
+                  user: user,
+                  products: products,
                 );
-                await order.create();*/
+                await order.create();
                 Modular.to.pushNamed(AppRoutes.thank);
                 // product.delete(docId: product.docId);
                 appBloc.changeIndexTo(0);
