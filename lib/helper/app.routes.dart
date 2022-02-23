@@ -12,4 +12,5 @@ class AppRoutes {
   static String confirm = '/confirm';
   static String thank = '/thank';
   static String personal = '/personal';
+  static String address = '/address';
 }

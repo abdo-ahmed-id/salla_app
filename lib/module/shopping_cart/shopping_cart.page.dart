@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
-import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
 import 'package:salla_app/module/app/bloc/app.bloc.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
@@ -29,7 +28,12 @@ class ShoppingCartPage extends StatelessWidget {
               return ModelStreamGetBuilder<ShoppingCart>(
                   parentModel: state?.user,
                   onError: (e) => Text(e),
-                  onEmpty: () => Center(child: Text('لا توجد منتجات حتي الان')),
+                  onEmpty: () => Center(
+                          child: Text(
+                        'لم تقم باضافة منتجات حتي الان',
+                        style: GoogleFonts.cairo(
+                            fontWeight: FontWeight.bold, fontSize: 18.sp),
+                      )),
                   onSuccess: (products) {
                     return ListView.builder(
                       itemCount: products.length,
@@ -188,50 +192,6 @@ class ShoppingCartPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GradientButton(
-                                    text: 'متابعة',
-                                    textColor: Colors.black,
-                                    onPressed: () {
-                                      state.user.streetName != null
-                                          ? Modular.to.pushNamed(
-                                              AppRoutes.confirm,
-                                              arguments: product)
-                                          : Modular.to.pushNamed(
-                                              AppRoutes.delivery,
-                                              arguments: product);
-                                    },
-                                  ),
-                                  SizedBox(
-                                    width: 6.w,
-                                  ),
-/*
-                                  Card(
-                                    color: Colors.grey[200],
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.favorite,
-                                        color: state.isFav
-                                            ? AppTheme.primaryColor
-                                            : Colors.black,
-                                      ),
-                                      onPressed: () {
-                                        if (AuthService.isLogin) {
-                                          appBloc.addFav(
-                                              product: product,
-                                              userModel: state.user);
-                                          print('login');
-                                        } else {
-                                          print('no login');
-                                        }
-                                      },
-                                    ),
-                                  )
-*/
-                                ],
-                              ),
                               const Divider(
                                 thickness: 3,
                               ),
@@ -249,6 +209,20 @@ class ShoppingCartPage extends StatelessWidget {
                   fontWeight: FontWeight.bold, fontSize: 18.sp),
             ));
           }),
+      floatingActionButton:
+          ModelStreamGetBuilder<ShoppingCart>(onSuccess: (products) {
+        return FloatingActionButton(
+          child: Text(
+            'شراء',
+            style:
+                GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18.sp),
+          ),
+          onPressed: () {
+            Modular.to.pushNamed(AppRoutes.delivery, arguments: products);
+          },
+          backgroundColor: AppTheme.primaryColor,
+        );
+      }),
     );
   }
 }

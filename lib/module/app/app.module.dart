@@ -10,6 +10,7 @@ import 'package:salla_app/module/home/mainHome.page.dart';
 import 'package:salla_app/module/login/forget_password.page.dart';
 import 'package:salla_app/module/login/login.page.dart';
 import 'package:salla_app/module/product/productVeiw.page.dart';
+import 'package:salla_app/module/profile/pages/address.page.dart';
 import 'package:salla_app/module/profile/pages/personal.page.dart';
 import 'package:salla_app/module/search/search.page.dart';
 import 'package:salla_app/module/signUp/signUp.page.dart';
@@ -27,6 +28,7 @@ class AppModule extends Module {
     ChildRoute(AppRoutes.signUp, child: (_, __) => SignUpPage()),
     ChildRoute(AppRoutes.login, child: (_, __) => LoginPage()),
     ChildRoute(AppRoutes.mainHome, child: (_, __) => MainHomePage()),
+    ChildRoute(AppRoutes.address, child: (_, __) => Address()),
     ChildRoute(AppRoutes.category,
         child: (_, args) => CategoryPage(
               category: args.data,
@@ -37,12 +39,12 @@ class AppModule extends Module {
             )),
     ChildRoute(AppRoutes.delivery,
         child: (_, args) => DeliveryPage(
-              product: args.data,
+              products: args.data,
             )),
     ChildRoute(AppRoutes.search, child: (_, __) => SearchPage()),
     ChildRoute(AppRoutes.confirm,
         child: (_, args) => ConfirmProductPage(
-              product: args.data['product'],
+              products: args.data['product'],
               user: args.data['user'],
             )),
     ChildRoute(AppRoutes.thank, child: (_, __) => ThankPage()),

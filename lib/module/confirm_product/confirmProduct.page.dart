@@ -3,7 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:salla_app/data/models/order.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
@@ -15,10 +14,10 @@ import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/confirm_product/confirm.product_widget.dart';
 
 class ConfirmProductPage extends StatelessWidget {
-  ShoppingCart product;
+  List<ShoppingCart> products;
   UserModel user;
 
-  ConfirmProductPage({this.product, this.user});
+  ConfirmProductPage({this.products, this.user});
   AppBloc appBloc = Modular.get<AppBloc>();
 
   @override
@@ -58,8 +57,9 @@ class ConfirmProductPage extends StatelessWidget {
             Container(
               height: 300.h,
               child: ListView.builder(
-                itemCount: 1,
+                itemCount: products.length,
                 itemBuilder: (context, index) {
+                  ShoppingCart product = products[index];
                   return InkWell(
                     onTap: () {
                       Modular.to.pushNamed(
@@ -229,7 +229,7 @@ class ConfirmProductPage extends StatelessWidget {
               textColor: Colors.black,
               onPressed: () async {
                 AppState state = appBloc.state;
-                Order order = Order(
+                /*Order order = Order(
                   userName: user.displayName,
                   email: user.email,
                   phoneNum: user.numPhone,
@@ -241,9 +241,9 @@ class ConfirmProductPage extends StatelessWidget {
                   company: product.company,
                   totalPrice: product.amount * int.parse(product.price),
                 );
-                await order.create();
+                await order.create();*/
                 Modular.to.pushNamed(AppRoutes.thank);
-                product.delete(docId: product.docId);
+                // product.delete(docId: product.docId);
                 appBloc.changeIndexTo(0);
               },
             ),

@@ -29,7 +29,9 @@ class ProfilePage extends StatelessWidget {
                     ),
                     CustomListTile(
                       text: 'عنوانك',
-                      onTap: () {},
+                      onTap: () {
+                        Modular.to.pushNamed(AppRoutes.address);
+                      },
                       icon: Icons.location_on,
                     ),
                     CustomListTile(

@@ -1,24 +1,15 @@
 import 'package:firestore_model/firestore_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
-import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/notifications.dart';
 
-class DeliveryPage extends StatefulWidget {
-  final List<ShoppingCart> products;
-  const DeliveryPage({Key key, this.products}) : super(key: key);
+class Address extends StatelessWidget {
+  const Address({Key key}) : super(key: key);
 
-  @override
-  State<DeliveryPage> createState() => _DeliveryPageState();
-}
-
-class _DeliveryPageState extends State<DeliveryPage> {
   @override
   Widget build(BuildContext context) {
     return ModelStreamSingleBuilder<UserModel>(onSuccess: (user) {
@@ -26,7 +17,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
         appBar: AppBar(
           backgroundColor: AppTheme.primaryColor,
           title: Text(
-            'التوصيل',
+            'عنوانك',
             style: GoogleFonts.cairo(
               fontWeight: FontWeight.bold,
               fontSize: 18.sp,
@@ -47,12 +38,83 @@ class _DeliveryPageState extends State<DeliveryPage> {
                           fontSize: 18.sp,
                         ),
                       )
-                    : Text(
-                        'عنوانك : ${user.cityName} - ${user.areaName} - ${user.streetName} ',
-                        style: GoogleFonts.cairo(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                        ),
+                    : Row(
+                        children: [
+                          Column(
+                            children: [
+                              Text(
+                                'اسم المدينة',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.sp,
+                                ),
+                              ),
+                              SizedBox(height: 16.h),
+                              Text(
+                                'اسم المنطقة',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.sp,
+                                ),
+                              ),
+                              SizedBox(height: 16.h),
+                              Text(
+                                'اسم الشارع',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.sp,
+                                ),
+                              ),
+                              SizedBox(height: 16.h),
+                              Text(
+                                'عمارة رقم',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.sp,
+                                ),
+                              ),
+                              SizedBox(height: 16.h),
+                              Text(
+                                'شقة رقم',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.sp,
+                                ),
+                              ),
+                              SizedBox(height: 16.h),
+                            ],
+                          ),
+                          Spacer(),
+                          Column(
+                            children: [
+                              Text(
+                                user.cityName ?? '',
+                                style:
+                                    GoogleFonts.cairo(color: Colors.blueGrey),
+                              ),
+                              SizedBox(height: 22.h),
+                              Text(
+                                user.areaName ?? '',
+                                style:
+                                    GoogleFonts.cairo(color: Colors.blueGrey),
+                              ),
+                              SizedBox(height: 22.h),
+                              Text(
+                                user.streetName ?? '',
+                                style:
+                                    GoogleFonts.cairo(color: Colors.blueGrey),
+                              ),
+                              SizedBox(height: 22.h),
+                              Text(
+                                user.buildingNum ?? '',
+                                style:
+                                    GoogleFonts.cairo(color: Colors.blueGrey),
+                              ),
+                              SizedBox(height: 26.h),
+                              Text(
+                                user.flatNum ?? '',
+                                style:
+                                    GoogleFonts.cairo(color: Colors.blueGrey),
+                              ),
+                              SizedBox(height: 22.h),
+                            ],
+                          )
+                        ],
                       ),
                 SizedBox(height: 15.h),
                 CustomTextForm(
@@ -107,7 +169,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
                 SizedBox(height: 60.h),
                 Center(
                   child: CustomButton(
-                      text: user.streetName != null ? 'تاكيد' : 'اضافة عنوان',
+                      text: user.streetName != null ? 'تعديل' : 'اضافة عنوان',
                       backgroundColor: AppTheme.primaryColor,
                       onPressed: () {
                         validationInput(user);
@@ -134,8 +196,6 @@ class _DeliveryPageState extends State<DeliveryPage> {
       Notifications.error('يجب ادخال رقم الشقة');
     } else {
       await user.save();
-      Modular.to.pushNamed(AppRoutes.confirm,
-          arguments: {'product': widget.products, 'user': user});
     }
   }
 }
