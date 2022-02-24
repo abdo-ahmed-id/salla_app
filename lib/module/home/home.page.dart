@@ -39,14 +39,12 @@ class _HomePageState extends State<HomePage> {
               child: InkWell(
                 onTap: AuthService.isLogin
                     ? () {
-                        if (category.carInformation == false &&
-                            widget.appState?.user?.brandCar == '' &&
-                            widget.appState?.user?.brandCar == null) {
+                        if (category.carInformation == false) {
                           showMaterialModalBottomSheet(
                             context: context,
                             builder: (context) => SingleChildScrollView(
                               controller: ModalScrollController.of(context),
-                              child: HomeWidget.bottomSheet(index),
+                              child: HomeWidget.bottomSheet(index, category),
                             ),
                           );
                         } else {

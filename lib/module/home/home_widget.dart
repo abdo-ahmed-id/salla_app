@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salla_app/data/models/category.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
@@ -11,7 +12,7 @@ import 'package:salla_app/module/app/bloc/app.bloc.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
 
 class HomeWidget {
-  static Widget bottomSheet(int index) {
+  static Widget bottomSheet(int index, Category category) {
     return BlocBuilder<AppBloc, AppState>(
         bloc: Modular.get<AppBloc>(),
         builder: (context, state) {
@@ -52,16 +53,20 @@ class HomeWidget {
                     state.brandSelect != null &&
                     state.categorySelect != null)
                   CustomButton(
-                    text: 'حفظ',
+                    text: 'متابعة',
                     textColor: Colors.black,
                     backgroundColor: AppTheme.primaryColor,
                     onPressed: () {
-                      state.user.update(data: {
-                        'categoryCar': state.categorySelect,
-                        'brandCar': state.brandSelect,
-                        'modelCar': state.modelSelect,
-                      });
-                      Modular.to.pushNamed(AppRoutes.mainHome);
+                      print(state.categorySelect);
+                      print(state.brandSelect);
+                      print(state.modelSelect);
+                      // state.user.update(data: {
+                      //   'categoryCar': state.categorySelect,
+                      //   'brandCar': state.brandSelect,
+                      //   'modelCar': state.modelSelect,
+                      // });
+                      Modular.to
+                          .pushNamed(AppRoutes.category, arguments: category);
                     },
                   )
               ],
