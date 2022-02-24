@@ -18,24 +18,24 @@ class ShoppingCartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocBuilder<AppBloc, AppState>(
-          bloc: appBloc,
-          builder: (context, state) {
-            if (!AuthService.isLogin) {
-              Center(child: Text('no product'));
-            } else {
-              return ModelStreamGetBuilder<ShoppingCart>(
-                  parentModel: state?.user,
-                  onError: (e) => Text(e),
-                  onEmpty: () => Center(
-                          child: Text(
-                        'لم تقم باضافة منتجات حتي الان',
-                        style: GoogleFonts.cairo(
-                            fontWeight: FontWeight.bold, fontSize: 18.sp),
-                      )),
-                  onSuccess: (products) {
-                    return ListView.builder(
+    return BlocBuilder<AppBloc, AppState>(
+        bloc: appBloc,
+        builder: (context, state) {
+          if (!AuthService.isLogin) {
+            Center(child: Text('no product'));
+          } else {
+            return ModelStreamGetBuilder<ShoppingCart>(
+                parentModel: state?.user,
+                onError: (e) => Text(e),
+                onEmpty: () => Center(
+                        child: Text(
+                      'لم تقم باضافة منتجات حتي الان',
+                      style: GoogleFonts.cairo(
+                          fontWeight: FontWeight.bold, fontSize: 18.sp),
+                    )),
+                onSuccess: (products) {
+                  return Scaffold(
+                    body: ListView.builder(
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         ShoppingCart product = products[index];
@@ -210,30 +210,28 @@ class ShoppingCartPage extends StatelessWidget {
                           ),
                         );
                       },
-                    );
-                  });
-            }
-            return Center(
-                child: Text(
-              'لم تقم باضافة منتجات حتي الان',
-              style: GoogleFonts.cairo(
-                  fontWeight: FontWeight.bold, fontSize: 18.sp),
-            ));
-          }),
-      floatingActionButton:
-          ModelStreamGetBuilder<ShoppingCart>(onSuccess: (products) {
-        return FloatingActionButton(
-          child: Text(
-            'شراء',
+                    ),
+                    floatingActionButton: FloatingActionButton(
+                      child: Text(
+                        'شراء',
+                        style: GoogleFonts.cairo(
+                            fontWeight: FontWeight.bold, fontSize: 18.sp),
+                      ),
+                      onPressed: () {
+                        Modular.to
+                            .pushNamed(AppRoutes.delivery, arguments: products);
+                      },
+                      backgroundColor: AppTheme.primaryColor,
+                    ),
+                  );
+                });
+          }
+          return Center(
+              child: Text(
+            'لم تقم باضافة منتجات حتي الان',
             style:
                 GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18.sp),
-          ),
-          onPressed: () {
-            Modular.to.pushNamed(AppRoutes.delivery, arguments: products);
-          },
-          backgroundColor: AppTheme.primaryColor,
-        );
-      }),
-    );
+          ));
+        });
   }
 }
