@@ -11,6 +11,7 @@ import 'package:salla_app/module/login/forget_password.page.dart';
 import 'package:salla_app/module/login/login.page.dart';
 import 'package:salla_app/module/product/productVeiw.page.dart';
 import 'package:salla_app/module/profile/pages/address.page.dart';
+import 'package:salla_app/module/profile/pages/pay_method.dart';
 import 'package:salla_app/module/profile/pages/personal.page.dart';
 import 'package:salla_app/module/search/search.page.dart';
 import 'package:salla_app/module/signUp/signUp.page.dart';
@@ -29,6 +30,7 @@ class AppModule extends Module {
     ChildRoute(AppRoutes.login, child: (_, __) => LoginPage()),
     ChildRoute(AppRoutes.mainHome, child: (_, __) => MainHomePage()),
     ChildRoute(AppRoutes.address, child: (_, __) => Address()),
+    ChildRoute(AppRoutes.payMethod, child: (_, __) => PayMethodPage()),
     ChildRoute(AppRoutes.category,
         child: (_, args) => CategoryPage(
               category: args.data,

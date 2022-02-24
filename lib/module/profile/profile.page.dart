@@ -36,7 +36,9 @@ class ProfilePage extends StatelessWidget {
                     ),
                     CustomListTile(
                       text: 'طرق الدفع',
-                      onTap: () {},
+                      onTap: () {
+                        Modular.to.pushNamed(AppRoutes.payMethod);
+                      },
                       icon: Icons.card_travel,
                     ),
                     CustomListTile(
