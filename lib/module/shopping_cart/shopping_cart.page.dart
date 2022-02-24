@@ -224,7 +224,7 @@ class ShoppingCartPage extends StatelessWidget {
           ModelStreamGetBuilder<ShoppingCart>(onSuccess: (products) {
         return FloatingActionButton(
           child: Text(
-            '${products.map((e) => e.totalCoast).reduce((a, b) => a + b)}',
+            'شراء',
             style:
                 GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18.sp),
           ),

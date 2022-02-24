@@ -5,17 +5,21 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/data/models/favoriets.dart';
+import 'package:salla_app/data/models/product.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
 import 'package:salla_app/module/app/bloc/app.bloc.dart';
+import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/app/service/auth.service.dart';
 
 class FavoritePage extends StatelessWidget {
   UserModel user;
+
   FavoritePage({this.user});
+
   @override
   Widget build(BuildContext context) {
     if (!AuthService.isLogin) {
@@ -142,9 +146,15 @@ class FavoritePage extends StatelessWidget {
                               ),
                               const Spacer(),
                               IconButton(
-                                onPressed: () {
-                                  product.delete();
-                                  Modular.get<AppBloc>().state.user;
+                                onPressed: () async {
+                                  AppState state = Modular.get<AppBloc>().state;
+                                  Product product2 =
+                                      await FirestoreModel.use<Product>()
+                                          .find(product.docId);
+                                  await product2.arrayRemove(
+                                      field: 'favList',
+                                      elements: [state.user?.docId]);
+                                  await product.delete();
                                 },
                                 icon: Icon(
                                   Icons.delete,
