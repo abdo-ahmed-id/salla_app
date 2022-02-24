@@ -152,7 +152,7 @@ class AppBloc extends Cubit<AppState> {
     }
   }
 
-  void addFav({UserModel userModel, product}) async {
+  void addFav({UserModel userModel, dynamic product}) async {
     emit(state.copyWith(isWrite: true));
     fav(product);
     bool isFav =

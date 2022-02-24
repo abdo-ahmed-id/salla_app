@@ -3,7 +3,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:salla_app/data/models/order.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
@@ -226,15 +225,16 @@ class ConfirmProductPage extends StatelessWidget {
             CustomButton(
               backgroundColor: AppTheme.primaryColor,
               text: 'شراء',
+              // '${products.map((e) => int.parse(e.price) * e.amount).reduce((a, b) => a + b)}',
               textColor: Colors.black,
               onPressed: () async {
-                Order order = Order(
-                  user: user,
-                  products: products,
-                );
-                await order.create();
+                // Order order = Order(
+                //   user: user,
+                //   products: products,
+                // );
+                // await order.create();
                 Modular.to.pushNamed(AppRoutes.thank);
-                // product.delete(docId: product.docId);
+
                 appBloc.changeIndexTo(0);
               },
             ),

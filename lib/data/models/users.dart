@@ -16,16 +16,18 @@ class UserModel extends FirestoreModel<UserModel> {
   String buildingNum;
   String flatNum;
 
-  UserModel({
-    this.displayName,
-    this.email,
-    this.numPhone,
-    this.password,
-    this.userName,
-    this.areaName,
-    this.cityName,
-    this.streetName,
-  });
+  UserModel(
+      {this.displayName,
+      this.email,
+      this.numPhone,
+      this.password,
+      this.userName,
+      this.areaName,
+      this.cityName,
+      this.streetName,
+      this.modelCar,
+      this.categoryCar,
+      this.brandCar});
 
   UserModel.fromAuth(User userAuth) {
     this.email = userAuth.email ?? '';

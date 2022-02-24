@@ -24,7 +24,9 @@ class _SignUpPageState extends State<SignUpPage> {
   String _confirmPassword;
 
   String _phoneNum;
-  bool checkedValue;
+  String categoryCar;
+  String brandCar;
+  String modelCar;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +104,30 @@ class _SignUpPageState extends State<SignUpPage> {
                     keyboardType: TextInputType.text,
                     obscureText: true,
                   ),
+                  SizedBox(height: 15.h),
+                  CustomTextForm(
+                    color: Colors.white,
+                    onChanged: (value) {
+                      categoryCar = value;
+                    },
+                    hintText: 'فئة السيارة',
+                  ),
+                  SizedBox(height: 15.h),
+                  CustomTextForm(
+                    color: Colors.white,
+                    onChanged: (value) {
+                      brandCar = value;
+                    },
+                    hintText: ' نوع السيارة',
+                  ),
+                  SizedBox(height: 15.h),
+                  CustomTextForm(
+                    color: Colors.white,
+                    onChanged: (value) {
+                      modelCar = value;
+                    },
+                    hintText: 'موديل السيارة',
+                  ),
                   SizedBox(height: 45.h),
                   GradientButton(
                     text: 'انشاء حساب',
@@ -140,6 +166,8 @@ class _SignUpPageState extends State<SignUpPage> {
       Notifications.error('يرجي ادخال اسمك بشكل صحيح');
     } else if (_phoneNum == null) {
       Notifications.error('يرجي ادخال رقم محمول صحيح');
+    } else if (categoryCar == null || brandCar == null || modelCar == null) {
+      Notifications.error('يرجي ادخال بيانات سيارتك');
     } else if (_password == null ||
         _password.length < 6 ||
         _confirmPassword != _password) {
@@ -151,7 +179,10 @@ class _SignUpPageState extends State<SignUpPage> {
               displayName: _userName,
               email: _email,
               numPhone: _phoneNum,
-              password: _password));
+              password: _password,
+              categoryCar: categoryCar,
+              brandCar: brandCar,
+              modelCar: modelCar));
     }
   }
 }
