@@ -22,7 +22,12 @@ class ShoppingCartPage extends StatelessWidget {
         bloc: appBloc,
         builder: (context, state) {
           if (!AuthService.isLogin) {
-            Center(child: Text('no product'));
+            Center(
+                child: Text(
+              'من فضلك قم بتسجيل الدخول اولا',
+              style: GoogleFonts.cairo(
+                  fontWeight: FontWeight.bold, fontSize: 18.sp),
+            ));
           } else {
             return ModelStreamGetBuilder<ShoppingCart>(
                 parentModel: state?.user,

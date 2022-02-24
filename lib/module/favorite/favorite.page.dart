@@ -25,13 +25,20 @@ class FavoritePage extends StatelessWidget {
     if (!AuthService.isLogin) {
       return Center(
           child: Text(
-        'لم تقم باضفة منتجات حتي الان',
+        'من فضلك قم بتسجيل الدخول اولا',
         style: GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 18.sp),
       ));
     } else {
       return Scaffold(
         body: ModelStreamGetBuilder<Favoriets>(
             parentModel: Modular.get<AppBloc>().state.user,
+            onLoading: () => const Center(child: CircularProgressIndicator()),
+            onEmpty: () => Center(
+                    child: Text(
+                  'لم تقم باضفة منتجات حتي الان',
+                  style: GoogleFonts.cairo(
+                      fontWeight: FontWeight.bold, fontSize: 18.sp),
+                )),
             onSuccess: (products) {
               return ListView.builder(
                 itemCount: products.length,
