@@ -18,14 +18,15 @@ class CategoryPage extends StatelessWidget {
   final Category category;
   final AppBloc _appBloc = Modular.get<AppBloc>();
   final AppState _appState = Modular.get<AppBloc>().state;
+  Product product;
 
   CategoryPage({this.category});
 
   @override
   Widget build(BuildContext context) {
-    print(_appState.user.brandCar);
-    print(_appState.user.modelCar);
-    print(_appState.user.categoryCar);
+    // print(_appState.user.brandCar);
+    // print(_appState.user.modelCar);
+    // print(_appState.user.categoryCar);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppTheme.primaryColor,
@@ -35,23 +36,20 @@ class CategoryPage extends StatelessWidget {
               GoogleFonts.cairo(fontWeight: FontWeight.bold, fontSize: 22.sp),
         ),
       ),
-      body: ModelStreamGetBuilder<Product>(
-          query: category?.carInformation == false
-              ? (q) => q
-                  .where('categoryCar', isEqualTo: _appState.categorySelect)
-                  .where('brandCar', isEqualTo: _appState.brandSelect)
-                  .where('modelCar', isEqualTo: _appState.modelSelect)
-              : (q) => q.where('category', isEqualTo: category.title),
-          onLoading: () => const Center(child: CircularProgressIndicator()),
-          onEmpty: () => const Center(child: Text('لا توجد منتجات حتي الان')),
-          onSuccess: (products) {
+      body: FutureBuilder(
+          future: allProduct(),
+          builder: (context, snapshot) {
             return BlocBuilder<AppBloc, AppState>(
                 bloc: _appBloc,
                 builder: (context, state) {
+                  if (!snapshot.hasData) {
+                    return Text('');
+                  }
+                  print('data ${snapshot.data}');
                   return ListView.builder(
-                    itemCount: products.length,
+                    itemCount: snapshot.data?.length,
                     itemBuilder: (context, index) {
-                      Product product = products[index];
+                      product = snapshot.data[index];
                       return InkWell(
                           onTap: () {
                             Modular.to.pushNamed(AppRoutes.product,
@@ -67,5 +65,21 @@ class CategoryPage extends StatelessWidget {
                 });
           }),
     );
+  }
+
+  Future<List<Product>> allProduct() async {
+    List<Product> products1 = await FirestoreModel.use<Product>().get(
+        queryBuilder: (q) => q
+            .where('category', isEqualTo: category.title)
+            .where('brandCar', isEqualTo: '')
+            .where('modelCar', isEqualTo: ''));
+    if (category?.carInformation == true) {
+      List<Product> products2 = await FirestoreModel.use<Product>().get(
+          queryBuilder: (q) => q
+              .where('brandCar', isEqualTo: _appState.brandSelect)
+              .where('modelCar', isEqualTo: _appState.modelSelect));
+      products1.addAll(products2);
+    }
+    return products1;
   }
 }

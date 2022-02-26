@@ -152,6 +152,17 @@ class AppBloc extends Cubit<AppState> {
     }
   }
 
+  void shoppingCartList(Product product) async {
+    bool shoppingCartList = product.shoppingCartList.contains(state.user.docId);
+    if (shoppingCartList) {
+      await product
+          .arrayRemove(field: 'shoppingCartList', elements: [state.user.docId]);
+    } else if (shoppingCartList == false) {
+      await product
+          .arrayUnion(field: 'shoppingCartList', elements: [state.user.docId]);
+    }
+  }
+
   void addFav({UserModel userModel, dynamic product}) async {
     emit(state.copyWith(isWrite: true));
     fav(product);
@@ -169,9 +180,10 @@ class AppBloc extends Cubit<AppState> {
       favoriets.price = product.price;
       favoriets.category = product.category;
       favoriets.description = product.description;
-      favoriets.imageScr = product.imageScr;
+      favoriets.images = product.images;
       favoriets.company = product.company;
       favoriets.subTitle = product.subTitle;
+      favoriets.discountP = product.discountP;
       favoriets.create(docId: product.docId);
 
       emit(state.copyWith(isFav: !state.isFav, isWrite: false));
@@ -180,6 +192,7 @@ class AppBloc extends Cubit<AppState> {
   }
 
   void addShoppingCart({UserModel userModel, Product product}) async {
+    shoppingCartList(product);
     bool isCart =
         await userModel.subCollection<ShoppingCart>().exists(product.docId);
 
@@ -189,6 +202,7 @@ class AppBloc extends Cubit<AppState> {
           .subCollection<ShoppingCart>()
           .delete(docId: product.docId);
       Notifications.success('تم حذف المنتج من عربة التسوق');
+      emit(state.copyWith(isWrite: false));
     } else {
       ShoppingCart shoppingCart = userModel.subCollection<ShoppingCart>();
       shoppingCart.title = product.title;
@@ -196,11 +210,13 @@ class AppBloc extends Cubit<AppState> {
       shoppingCart.price = product.price;
       shoppingCart.category = product.category;
       shoppingCart.description = product.description;
-      shoppingCart.imageScr = product.imageScr;
+      shoppingCart.images = product.images;
       shoppingCart.company = product.company;
       shoppingCart.subTitle = product.subTitle;
+      shoppingCart.discountP = product.discountP;
       shoppingCart.create(docId: product.docId);
       Notifications.success('تم اضافة المنتج الي عربة التسوق');
+      emit(state.copyWith(isWrite: false));
     }
   }
 }

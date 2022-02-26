@@ -58,14 +58,26 @@ class _SearchTypeState extends State<SearchType> {
                                   Modular.to.pushNamed(AppRoutes.category,
                                       arguments: category);
                                 },
-                                child: Card(
-                                    elevation: 4,
-                                    // margin: EdgeInsets.all(20),
-                                    color: Colors.grey[200],
-                                    child: ListTile(
-                                      title: Text(category.title),
-                                      leading: CircleAvatar(),
-                                    )),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                      elevation: 4,
+                                      // margin: EdgeInsets.all(20),
+                                      color: Colors.grey[200],
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: double.infinity,
+                                            height: 100.h,
+                                            child: Image.network(
+                                                category.imageScr),
+                                          ),
+                                          ListTile(
+                                            title: Text(category.title),
+                                          ),
+                                        ],
+                                      )),
+                                ),
                               );
                             }
                             return SizedBox();

@@ -5,8 +5,9 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
   String title;
   String price;
   num rate;
+  num discountP;
   String description;
-  String imageScr;
+  List<String> images;
   num amount = 1;
   num totalCoast;
   String company;
@@ -17,7 +18,7 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
       this.price,
       this.rate,
       this.description,
-      this.imageScr,
+      this.images,
       this.amount,
       this.totalCoast,
       this.subTitle,
@@ -27,9 +28,10 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
     this.category = map['category'];
     this.title = map['title'];
     this.description = map['description'];
-    this.imageScr = map['imageScr'];
+    this.images = map['images'] is List ? map['images'].cast<String>() : null;
     this.price = map['price'];
     this.rate = map['rate'];
+    this.discountP = map['discountP'];
     this.amount = map['amount'];
     this.totalCoast = map['totalCoast'];
     this.subTitle = map['subTitle'];
@@ -44,9 +46,10 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
         'category': this.category,
         'title': this.title,
         'description': this.description,
-        'imageScr': this.imageScr,
+        'images': this.images,
         'price': this.price,
         'rate': this.rate,
+        'discountP': this.discountP,
         'amount': this.amount ?? 1,
         'totalCoast': this.totalCoast,
         'subTitle': this.subTitle,

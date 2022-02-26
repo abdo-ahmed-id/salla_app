@@ -62,27 +62,39 @@ class _SearchProductState extends State<SearchProduct> {
                                   Modular.to.pushNamed(AppRoutes.product,
                                       arguments: product);
                                 },
-                                child: Card(
-                                    elevation: 4,
-                                    // margin: EdgeInsets.all(20),
-                                    color: Colors.grey[200],
-                                    child: ListTile(
-                                      trailing: Text(
-                                        ' ${product.price}  جنية',
-                                        style: GoogleFonts.cairo(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.sp,
-                                            color: AppTheme.primaryColor),
-                                      ),
-                                      title: Text(
-                                        product.title,
-                                        style: GoogleFonts.cairo(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.sp,
-                                            color: AppTheme.primaryColor),
-                                      ),
-                                      leading: CircleAvatar(),
-                                    )),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Card(
+                                      elevation: 4,
+                                      // margin: EdgeInsets.all(20),
+                                      color: Colors.grey[200],
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                            width: double.infinity,
+                                            height: 100.h,
+                                            child: Image.network(
+                                                product.images[0]),
+                                          ),
+                                          ListTile(
+                                            trailing: Text(
+                                              ' ${product.price}  جنية',
+                                              style: GoogleFonts.cairo(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.sp,
+                                                  color: AppTheme.primaryColor),
+                                            ),
+                                            title: Text(
+                                              product.title,
+                                              style: GoogleFonts.cairo(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.sp,
+                                                  color: AppTheme.primaryColor),
+                                            ),
+                                          ),
+                                        ],
+                                      )),
+                                ),
                               );
                             }
                             return SizedBox();

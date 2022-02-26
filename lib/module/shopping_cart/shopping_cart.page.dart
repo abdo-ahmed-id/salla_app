@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:salla_app/data/models/product.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
@@ -44,173 +45,236 @@ class ShoppingCartPage extends StatelessWidget {
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         ShoppingCart product = products[index];
+
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                          child: Stack(
+                            alignment: AlignmentDirectional.topCenter,
                             children: [
-                              SizedBox(
-                                height: 16.h,
-                              ),
-                              Center(
-                                child: ListTile(
-                                  title: Text(
-                                    product.title,
-                                    style: GoogleFonts.cairo(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 16.h,
                                   ),
-                                  leading: Text(
-                                    product?.company,
-                                    style: GoogleFonts.cairo(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.sp,
-                                        color: Colors.blue),
+                                  Center(
+                                    child: ListTile(
+                                      title: Text(
+                                        product.title,
+                                        style: GoogleFonts.cairo(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 22),
+                                      ),
+                                      leading: Text(
+                                        product?.company,
+                                        style: GoogleFonts.cairo(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.sp,
+                                            color: Colors.blue),
+                                      ),
+                                      trailing: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Expanded(
+                                            flex: 1,
+                                            child: Text(
+                                              ' ${product.price} جنيه ',
+                                              style: GoogleFonts.cairo(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 18.sp,
+                                                  color: (product.discountP ??
+                                                              0) >
+                                                          0
+                                                      ? Colors.grey
+                                                      : AppTheme.primaryColor),
+                                            ),
+                                          ),
+                                          if ((product.discountP ?? 0) > 0)
+                                            Expanded(
+                                              flex: 1,
+                                              child: Text(
+                                                ' ${(int.parse(product.price) - product.discountP * (int.parse(product.price) / 100))} جنيه ',
+                                                style: GoogleFonts.cairo(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18.sp,
+                                                    color:
+                                                        AppTheme.primaryColor),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                      subtitle: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            product.subTitle,
+                                            style: GoogleFonts.cairo(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.sp,
+                                                color: AppTheme.primaryColor),
+                                          ),
+                                          RatingBar.builder(
+                                            itemSize: 20,
+                                            initialRating: 3,
+                                            minRating: 1,
+                                            direction: Axis.horizontal,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            itemPadding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 4.0),
+                                            itemBuilder: (context, _) => Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                              size: 10.sp,
+                                            ),
+                                            onRatingUpdate: (rating) {
+                                              print(rating);
+                                            },
+                                          )
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                  trailing: Text(
-                                    '${product.price} جنية',
-                                    style: GoogleFonts.cairo(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.sp,
-                                        color: AppTheme.primaryColor),
-                                  ),
-                                  subtitle: Column(
+                                  Row(
                                     mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        product.subTitle,
-                                        style: GoogleFonts.cairo(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.sp,
-                                            color: AppTheme.primaryColor),
+                                      product.images != null
+                                          ? Image.network(
+                                              product.images[0],
+                                              height: 100,
+                                              width: 100,
+                                            )
+                                          : Image.network(
+                                              AssetsHelper.engineImage,
+                                              height: 100,
+                                              width: 100,
+                                            ),
+                                      SizedBox(
+                                        width: 10.w,
                                       ),
-                                      RatingBar.builder(
-                                        itemSize: 20,
-                                        initialRating: 3,
-                                        minRating: 1,
-                                        direction: Axis.horizontal,
-                                        allowHalfRating: true,
-                                        itemCount: 5,
-                                        itemPadding: const EdgeInsets.symmetric(
-                                            horizontal: 4.0),
-                                        itemBuilder: (context, _) => Icon(
-                                          Icons.star,
-                                          color: Colors.amber,
-                                          size: 10.sp,
+                                      Flexible(
+                                        child: Text(
+                                          ' متوافر لدينا في محطات',
+                                          style: GoogleFonts.cairo(
+                                              height: 2.0.h,
+                                              color: Colors.black,
+                                              fontSize: 15.sp,
+                                              fontWeight: FontWeight.bold),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
                                         ),
-                                        onRatingUpdate: (rating) {
-                                          print(rating);
-                                        },
-                                      )
+                                      ),
+                                      Image.asset(
+                                        AssetsHelper.mobilImage,
+                                        height: 80,
+                                        width: 80,
+                                      ),
                                     ],
                                   ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Image.asset(
-                                    AssetsHelper.bataryImage,
-                                    height: 100,
-                                    width: 100,
-                                  ),
-                                  SizedBox(
-                                    width: 10.w,
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      ' متوافر لدينا في محطات',
+                                  ListTile(
+                                    leading: Text(
+                                      'الكمية',
                                       style: GoogleFonts.cairo(
-                                          height: 2.0.h,
-                                          color: Colors.black,
-                                          fontSize: 15.sp,
-                                          fontWeight: FontWeight.bold),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18.sp,
+                                          color: AppTheme.primaryColor),
+                                    ),
+                                    title: Center(
+                                      child: Row(
+                                        children: [
+                                          IconButton(
+                                            onPressed: () {
+                                              if (product.amount > 1) {
+                                                product.decrement(
+                                                    field: 'amount');
+                                              }
+                                            },
+                                            icon: Icon(Icons.remove),
+                                          ),
+                                          Text(
+                                            product.amount.toString(),
+                                            style: GoogleFonts.cairo(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.sp,
+                                                color: AppTheme.primaryColor),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              product.increment(
+                                                  field: 'amount');
+                                            },
+                                            icon: Icon(Icons.add),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                  Image.asset(
-                                    AssetsHelper.mobilImage,
-                                    height: 80,
-                                    width: 80,
-                                  ),
-                                ],
-                              ),
-                              ListTile(
-                                leading: Text(
-                                  'الكمية',
-                                  style: GoogleFonts.cairo(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 18.sp,
-                                      color: AppTheme.primaryColor),
-                                ),
-                                title: Center(
-                                  child: Row(
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      IconButton(
-                                        onPressed: () {
-                                          if (product.amount > 1) {
-                                            product.decrement(field: 'amount');
-                                          }
-                                        },
-                                        icon: Icon(Icons.remove),
-                                      ),
                                       Text(
-                                        product.amount.toString(),
+                                        'المبلغ الاجمالي',
                                         style: GoogleFonts.cairo(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 18.sp,
                                             color: AppTheme.primaryColor),
                                       ),
+                                      SizedBox(
+                                        width: 30.w,
+                                      ),
+                                      Text(
+                                        '${int.parse(product.price) * product.amount} جنية',
+                                        style: GoogleFonts.cairo(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18.sp,
+                                            color: AppTheme.primaryColor),
+                                      ),
+                                      const Spacer(),
                                       IconButton(
-                                        onPressed: () {
-                                          product.increment(field: 'amount');
+                                        onPressed: () async {
+                                          AppState state =
+                                              Modular.get<AppBloc>().state;
+                                          Product product2 =
+                                              await FirestoreModel.use<
+                                                      Product>()
+                                                  .find(product.docId);
+                                          await product2.arrayRemove(
+                                              field: 'shoppingCartList',
+                                              elements: [state.user?.docId]);
+                                          await product.delete();
                                         },
-                                        icon: Icon(Icons.add),
+                                        icon: Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
+                                          size: 40.sp,
+                                        ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    'المبلغ الاجمالي',
-                                    style: GoogleFonts.cairo(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.sp,
-                                        color: AppTheme.primaryColor),
-                                  ),
-                                  SizedBox(
-                                    width: 30.w,
-                                  ),
-                                  Text(
-                                    '${int.parse(product.price) * product.amount} جنية',
-                                    style: GoogleFonts.cairo(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18.sp,
-                                        color: AppTheme.primaryColor),
-                                  ),
-                                  const Spacer(),
-                                  IconButton(
-                                    onPressed: () {
-                                      product.delete();
-                                    },
-                                    icon: Icon(
-                                      Icons.delete,
-                                      color: Colors.red,
-                                      size: 40.sp,
-                                    ),
+                                  const Divider(
+                                    thickness: 3,
                                   ),
                                 ],
                               ),
-                              const Divider(
-                                thickness: 3,
-                              ),
+                              if ((product.discountP ?? 0) > 0)
+                                Container(
+                                  height: 40,
+                                  width: 80,
+                                  color: Colors.red[800],
+                                  child: Center(
+                                      child: Text(
+                                    '% ${product.discountP.toString()}',
+                                    style: GoogleFonts.cairo(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16.sp,
+                                    ),
+                                  )),
+                                ),
                             ],
                           ),
                         );

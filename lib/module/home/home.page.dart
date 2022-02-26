@@ -22,6 +22,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    Modular.get<AppBloc>().initState();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: ModelStreamGetBuilder<Category>(builder: (context, snapshot) {
@@ -39,7 +45,7 @@ class _HomePageState extends State<HomePage> {
               child: InkWell(
                 onTap: AuthService.isLogin
                     ? () {
-                        if (category.carInformation == false) {
+                        if (category.carInformation == true) {
                           showMaterialModalBottomSheet(
                             context: context,
                             builder: (context) => SingleChildScrollView(
@@ -66,18 +72,18 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Expanded(
                       child: Container(
-                        height: 100,
-                        width: 100,
+                        height: 100.h,
+                        width: 100.w,
                         clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
                           color: Colors.grey[200],
                           shape: BoxShape.circle,
                         ),
-                        child: Image.asset(
-                          AssetsHelper.engineImage,
+                        child: Image.network(
+                          category.imageScr ?? AssetsHelper.networkImage,
                           fit: BoxFit.contain,
-                          height: 100,
-                          width: 100,
+                          height: 100.h,
+                          width: 100.w,
                         ),
                       ),
                     ),

@@ -52,26 +52,6 @@ class _PayMethodPageState extends State<PayMethodPage> {
         // mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(height: 50.h),
-          InkWell(
-            onTap: () {
-              Notifications.success('هذه الخدمة سوف تكون متاحة قريبا');
-            },
-            child: ListTile(
-              title: Text(
-                'الدفع باستخدام بطاقات الائتمان',
-                style: GoogleFonts.cairo(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18.sp,
-                    color: Colors.grey),
-              ),
-              leading: Radio(
-                activeColor: AppTheme.primaryColor,
-                // value: 'one',
-                // groupValue: _radioValue,
-                // onChanged: radioButtonChanges,
-              ),
-            ),
-          ),
           ListTile(
             title: Text(
               'الدفع عند الاستلام',
@@ -86,7 +66,21 @@ class _PayMethodPageState extends State<PayMethodPage> {
               groupValue: _radioValue,
               onChanged: radioButtonChanges,
             ),
-          )
+          ),
+          InkWell(
+            onTap: () {
+              Notifications.success('هذه الخدمة سوف تكون متاحة قريبا');
+            },
+            child: ListTile(
+              title: Text(
+                'الدفع باستخدام بطاقات الائتمان',
+                style: GoogleFonts.cairo(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.sp,
+                    color: Colors.grey),
+              ),
+            ),
+          ),
         ],
       ),
     );

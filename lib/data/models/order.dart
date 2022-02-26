@@ -25,7 +25,7 @@ class Order extends FirestoreModel<Order> {
   @override
   Map<String, dynamic> get toMap => {
         'user': user.toMap,
-        'products': products.map((e) => e.toMap),
+        'products': products.map((e) => e.toMap).toList(),
         'orderNum': orderNum,
       };
 }

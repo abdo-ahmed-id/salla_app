@@ -45,11 +45,11 @@ class AuthService {
       return user;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'invalid-email') {
-        Notifications.error(e.message);
+        Notifications.error('هذا البريد الالكتروني غير موجود');
       } else if (e.code == 'user-not-found') {
-        Notifications.error(e.message);
+        Notifications.error('هذا المستخدم غير موجود');
       } else if (e.code == 'wrong-password') {
-        Notifications.error(e.message);
+        Notifications.error('كلمة المرور غير صحيحة');
       } else if (e.code == 'user-disabled') {
         Notifications.error(e.message);
       }

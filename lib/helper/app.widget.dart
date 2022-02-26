@@ -1,75 +1,78 @@
-import 'package:flutter/cupertino.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/helper/app.theme.dart';
+import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/module/app/bloc/app.bloc.dart';
+import 'package:salla_app/module/app/bloc/app.state.dart';
 
-// class CustomCircleAvatar extends StatelessWidget {
-//   final String imageUrl;
-//   CustomCircleAvatar({Key key, this.imageUrl}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       height: 80.h,
-//       width: 80.w,
-//       clipBehavior: Clip.antiAlias,
-//       decoration: BoxDecoration(
-//         shape: BoxShape.circle,
-//         // border: Border.all(width: 4.w, color: AppTheme.primaryColor),
-//         // borderRadius: BorderRadius.circular(100.h),
-//       ),
-//       child: CachedNetworkImage(
-//         fit: BoxFit.cover,
-//         imageUrl: imageUrl,
-//         placeholder: (context, url) => Center(
-//             child: Image.asset(
-//           AssetsHelper.profileImage,
-//           fit: BoxFit.fill,
-//         )),
-//         errorWidget: (context, url, error) {
-//           print('cached error:$error');
-//           return Image.asset(
-//             AssetsHelper.profileImage,
-//             fit: BoxFit.fill,
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
-//
-// class CustomCachedImage extends StatelessWidget {
-//   final String imageUrl;
-//   final double width;
-//   final double height;
-//   final BoxFit fit;
-//
-//   CustomCachedImage({Key key, this.imageUrl, this.width, this.height, this.fit})
-//       : super(key: key);
-//   final AppState state = Modular.get<AppBloc>().state;
-//   @override
-//   Widget build(BuildContext context) {
-//     return CachedNetworkImage(
-//       placeholderFadeInDuration: Duration(seconds: 2),
-//       imageUrl: imageUrl,
-//       placeholder: (context, url) => Center(
-//           child: Image.asset(
-//               state.isDark ? AssetsHelper.lightLogo : AssetsHelper.lightLogo)),
-//       errorWidget: (context, url, error) {
-//         print('cached error:$error');
-//         return Icon(
-//           Icons.error,
-//           color: Colors.red,
-//           size: 30,
-//         );
-//       },
-//       width: width,
-//       height: height,
-//       fit: fit ?? BoxFit.cover,
-//     );
-//   }
-// }
+class CustomCircleAvatar extends StatelessWidget {
+  final String imageUrl;
+  CustomCircleAvatar({Key key, this.imageUrl}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 100,
+      clipBehavior: Clip.antiAlias,
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        shape: BoxShape.circle,
+      ),
+      child: CachedNetworkImage(
+        fit: BoxFit.cover,
+        imageUrl: imageUrl,
+        placeholder: (context, url) => Center(
+            child: Image.asset(
+          AssetsHelper.engineImage,
+          fit: BoxFit.fill,
+        )),
+        errorWidget: (context, url, error) {
+          print('cached error:$error');
+          return Image.asset(
+            AssetsHelper.bataryImage,
+            fit: BoxFit.fill,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CustomCachedImage extends StatelessWidget {
+  final String imageUrl;
+  final double width;
+  final double height;
+  final BoxFit fit;
+
+  CustomCachedImage({Key key, this.imageUrl, this.width, this.height, this.fit})
+      : super(key: key);
+  final AppState state = Modular.get<AppBloc>().state;
+  @override
+  Widget build(BuildContext context) {
+    return CachedNetworkImage(
+      placeholderFadeInDuration: Duration(seconds: 2),
+      imageUrl: imageUrl,
+      placeholder: (context, url) =>
+          Center(child: Image.asset(AssetsHelper.bataryImage)),
+      errorWidget: (context, url, error) {
+        print('cached error:$error');
+        return Icon(
+          Icons.error,
+          color: Colors.red,
+          size: 30,
+        );
+      },
+      width: width,
+      height: height,
+      fit: fit ?? BoxFit.cover,
+    );
+  }
+}
+
 class CustomListTile extends StatelessWidget {
   const CustomListTile({
     Key key,

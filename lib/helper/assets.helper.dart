@@ -9,4 +9,6 @@ class AssetsHelper {
   static const String shoppingCart = 'assets/images/edit shop.png';
   static const String darkLogo = 'assets/images/dark_logo-removebg-preview.jpg';
   static const String backgroundImage = 'assets/images/E come edit.jpg';
+  static const String networkImage =
+      'https://alamalsayarat.com/wp-content/uploads/2021/10/Chevrolet-Performance-ZZ632-Crate-Engine.jpg';
 }

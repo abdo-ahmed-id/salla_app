@@ -68,14 +68,7 @@ class LoginPage extends StatelessWidget {
                       keyboardType: TextInputType.text,
                       obscureText: true,
                     ),
-                    SizedBox(height: 15.h),
-                    CustomTextButton(
-                      text: 'هل نسيت كلمة المرور؟',
-                      size: 18,
-                      onPressed: () {
-                        Modular.to.pushNamed(AppRoutes.forgetPassword);
-                      },
-                    ),
+                    SizedBox(height: 25.h),
                     Center(
                       child: GradientButton(
                         text: 'تسجيل الدخول',
@@ -98,6 +91,14 @@ class LoginPage extends StatelessWidget {
                       size: 18,
                       onPressed: () {
                         Modular.to.pushReplacementNamed(AppRoutes.signUp);
+                      },
+                    ),
+                    SizedBox(height: 10.h),
+                    CustomTextButton(
+                      text: 'هل نسيت كلمة المرور؟',
+                      size: 18,
+                      onPressed: () {
+                        Modular.to.pushNamed(AppRoutes.forgetPassword);
                       },
                     ),
                   ],
