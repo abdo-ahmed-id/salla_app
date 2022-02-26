@@ -364,11 +364,13 @@ class PrimaryTextField extends StatelessWidget {
       ),
       decoration: InputDecoration(
         hintText: hintText,
-        hintStyle: TextStyle(
-          color: Theme.of(context).accentColor,
+        hintStyle: GoogleFonts.cairo(
+          fontSize: 20,
+          color: Colors.grey,
+          height: 1,
         ),
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: Colors.black),
         ),
       ),
     );

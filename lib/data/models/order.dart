@@ -5,12 +5,14 @@ import 'package:salla_app/data/models/users.dart';
 class Order extends FirestoreModel<Order> {
   num orderNum;
   num productsNum;
+  String notes;
   UserModel user;
   List<ShoppingCart> products;
 
-  Order({this.user, this.products, this.orderNum});
+  Order({this.user, this.products, this.orderNum, this.notes});
   Order.fromMap(Map<String, dynamic> map) {
     orderNum = map['orderNum'];
+    notes = map['notes'];
     user = map['user'] is Map ? UserModel.fromMap(map['user']) : UserModel();
     products = <ShoppingCart>[];
     if (map['products'] is List) {
@@ -27,5 +29,6 @@ class Order extends FirestoreModel<Order> {
         'user': user.toMap,
         'products': products.map((e) => e.toMap).toList(),
         'orderNum': orderNum,
+        'notes': notes,
       };
 }
