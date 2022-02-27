@@ -33,15 +33,22 @@ class ProductViewPage extends StatelessWidget {
           children: [
             Container(
               height: 200,
-              child: PageView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: product.images.length,
-                  itemBuilder: (context, index) {
-                    return Image.network(
-                      product.images[index] ?? AssetsHelper.networkImage,
-                      height: 200,
-                      width: 300,
-                    );
+              child: ModelStreamSingleBuilder<Product>(
+                  docId: product.docId,
+                  onLoading: () => const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                  onSuccess: (product) {
+                    return PageView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: product.images.length,
+                        itemBuilder: (context, index) {
+                          return Image.network(
+                            product.images[index] ?? AssetsHelper.networkImage,
+                            height: 200,
+                            width: 300,
+                          );
+                        });
                   }),
             ),
             SizedBox(
@@ -65,12 +72,17 @@ class ProductViewPage extends StatelessWidget {
                       style: GoogleFonts.cairo(
                           fontWeight: FontWeight.bold, fontSize: 22),
                     ),
-                    leading: Text(
-                      product.company,
-                      style: GoogleFonts.lato(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                          color: Colors.blue),
+                    leading: Flexible(
+                      child: Text(
+                        product.company,
+                        style: GoogleFonts.lato(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18.sp,
+                            color: Colors.blue),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
+                        softWrap: true,
+                      ),
                     ),
                     trailing: Text(
                       '${product.price} جنية',

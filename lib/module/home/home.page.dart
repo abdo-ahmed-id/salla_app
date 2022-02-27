@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                         }
                       }
                     : () {
-                        if (category.carInformation == false) {
+                        if (category.carInformation == true) {
                           Modular.to.pushNamed(AppRoutes.login);
                         } else {
                           Modular.to.pushNamed(AppRoutes.category,

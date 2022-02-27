@@ -248,6 +248,28 @@ class _SignUpPageState extends State<SignUpPage> {
       return Constants.alfaromioModelCars;
     } else if (state.brandSelect == 'اوبل') {
       return Constants.appleModelCars;
+    } else if (state.brandSelect == 'اوداي') {
+      return Constants.odayModelCars;
+    } else if (state.brandSelect == 'بروتون') {
+      return Constants.protonModelCars;
+    } else if (state.brandSelect == 'بريليانس') {
+      return Constants.brelyansModelCars;
+    } else if (state.brandSelect == 'بيجو') {
+      return Constants.bigoModelCars;
+    } else if (state.brandSelect == 'تشانجان') {
+      return Constants.tshanganModelCars;
+    } else if (state.brandSelect == 'تويوتا') {
+      return Constants.toyotaModelCars;
+    } else if (state.brandSelect == 'جاك') {
+      return Constants.jakModelCars;
+    } else if (state.brandSelect == 'جريتوول') {
+      return Constants.gretoolModelCars;
+    } else if (state.brandSelect == 'جلوري') {
+      return Constants.gloaryModelCars;
+    } else if (state.brandSelect == 'جيب') {
+      return Constants.geepModelCars;
+    } else if (state.brandSelect == 'مرسيدس') {
+      return Constants.marsedesModelCars;
     }
   }
 }

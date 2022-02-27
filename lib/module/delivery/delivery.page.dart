@@ -9,6 +9,8 @@ import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/notifications.dart';
+import 'package:salla_app/module/app/bloc/app.bloc.dart';
+import 'package:salla_app/module/app/bloc/app.state.dart';
 
 class DeliveryPage extends StatefulWidget {
   final List<ShoppingCart> products;
@@ -39,7 +41,7 @@ class _DeliveryPageState extends State<DeliveryPage> {
             child: Column(
               children: [
                 SizedBox(height: 40.h),
-                user.areaName == null
+                user.streetName == null
                     ? Text(
                         ' ${user.displayName}\n لم تقم باضافة عنوان حتي الان',
                         style: GoogleFonts.cairo(
@@ -48,22 +50,12 @@ class _DeliveryPageState extends State<DeliveryPage> {
                         ),
                       )
                     : Text(
-                        'عنوانك : ${user.cityName} - ${user.areaName} - ${user.streetName} ',
+                        'عنوانك : ${user.cityName}  - ${user.streetName} - ${user.buildingNum} - ${user.flatNum}',
                         style: GoogleFonts.cairo(
                           fontWeight: FontWeight.bold,
                           fontSize: 18.sp,
                         ),
                       ),
-                SizedBox(height: 15.h),
-                CustomTextForm(
-                  initialValue: user.streetName ?? '',
-                  color: Colors.black,
-                  onChanged: (value) {
-                    user.streetName = value;
-                  },
-                  hintText: 'اسم الشارع',
-                  keyboardType: TextInputType.text,
-                ),
                 SizedBox(height: 15.h),
                 CustomTextForm(
                   initialValue: user.cityName ?? '',
@@ -76,15 +68,25 @@ class _DeliveryPageState extends State<DeliveryPage> {
                 ),
                 SizedBox(height: 15.h),
                 CustomTextForm(
-                  initialValue: user.areaName ?? '',
+                  initialValue: user.streetName ?? '',
                   color: Colors.black,
                   onChanged: (value) {
-                    user.areaName = value;
+                    user.streetName = value;
                   },
-                  hintText: 'اسم المنطقة',
+                  hintText: 'اسم الشارع',
                   keyboardType: TextInputType.text,
                 ),
                 SizedBox(height: 15.h),
+                // CustomTextForm(
+                //   initialValue: user.areaName ?? '',
+                //   color: Colors.black,
+                //   onChanged: (value) {
+                //     user.areaName = value;
+                //   },
+                //   hintText: 'اسم المنطقة',
+                //   keyboardType: TextInputType.text,
+                // ),
+                // SizedBox(height: 15.h),
                 CustomTextForm(
                   initialValue: user.buildingNum ?? '',
                   color: Colors.black,
@@ -121,11 +123,10 @@ class _DeliveryPageState extends State<DeliveryPage> {
     });
   }
 
+  AppState state = Modular.get<AppBloc>().state;
   void validationInput(UserModel user) async {
     if (user.streetName == null || user.streetName.isEmpty) {
       Notifications.error('يجب ادخال اسم الشارع');
-    } else if (user.areaName == null || user.areaName.isEmpty) {
-      Notifications.error('يجب ادخال اسم المنطقة');
     } else if (user.cityName == null || user.cityName.isEmpty) {
       Notifications.error('يجب ادخال اسم المدينة');
     } else if (user.buildingNum == null || user.buildingNum.isEmpty) {

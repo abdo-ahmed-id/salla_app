@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:salla_app/data/models/category.dart';
 import 'package:salla_app/data/models/favoriets.dart';
 import 'package:salla_app/data/models/product.dart';
+import 'package:salla_app/data/models/promocode.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/module/app/app.module.dart';
@@ -20,6 +21,7 @@ void main() async {
     Product(),
     Favoriets(),
     ShoppingCart(),
+    PromoCode(),
   ]);
 
   await Firebase.initializeApp();

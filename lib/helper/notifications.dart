@@ -17,10 +17,8 @@ class Notifications {
   }
 
   static bool isOverlay = false;
-  static success(String message) => showSnackBar(
-        content: message,
-        backgroundColor: Colors.green,
-      );
+  static success(String message, {int time}) =>
+      showSnackBar(content: message, backgroundColor: Colors.green, time: time);
 
   static error(String message) => showSnackBar(
         content: message,
@@ -53,7 +51,7 @@ class Notifications {
     },
   );
   static showSnackBar(
-      {String content, Color textColor, Color backgroundColor}) {
+      {String content, Color textColor, Color backgroundColor, int time}) {
     asuka.showSnackBar(SnackBar(
       content: Text(
         content ?? '',
@@ -64,7 +62,7 @@ class Notifications {
         ),
       ),
       backgroundColor: backgroundColor ?? Colors.black26,
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: time ?? 1),
     ));
   }
 

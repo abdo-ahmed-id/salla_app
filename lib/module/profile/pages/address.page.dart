@@ -30,7 +30,7 @@ class Address extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: 40.h),
-                user.areaName == null
+                user.streetName == null
                     ? Text(
                         ' ${user.displayName}\n لم تقم باضافة عنوان حتي الان',
                         style: GoogleFonts.cairo(
@@ -44,13 +44,6 @@ class Address extends StatelessWidget {
                             children: [
                               Text(
                                 'اسم المدينة',
-                                style: GoogleFonts.cairo(
-                                  fontSize: 20.sp,
-                                ),
-                              ),
-                              SizedBox(height: 16.h),
-                              Text(
-                                'اسم المنطقة',
                                 style: GoogleFonts.cairo(
                                   fontSize: 20.sp,
                                 ),
@@ -88,12 +81,12 @@ class Address extends StatelessWidget {
                                     GoogleFonts.cairo(color: Colors.blueGrey),
                               ),
                               SizedBox(height: 22.h),
-                              Text(
-                                user.areaName ?? '',
-                                style:
-                                    GoogleFonts.cairo(color: Colors.blueGrey),
-                              ),
-                              SizedBox(height: 22.h),
+                              // Text(
+                              //   user.areaName ?? '',
+                              //   style:
+                              //       GoogleFonts.cairo(color: Colors.blueGrey),
+                              // ),
+                              // SizedBox(height: 22.h),
                               Text(
                                 user.streetName ?? '',
                                 style:
@@ -137,15 +130,15 @@ class Address extends StatelessWidget {
                   keyboardType: TextInputType.text,
                 ),
                 SizedBox(height: 15.h),
-                CustomTextForm(
-                  initialValue: user.areaName ?? '',
-                  color: Colors.black,
-                  onChanged: (value) {
-                    user.areaName = value;
-                  },
-                  hintText: 'اسم المنطقة',
-                  keyboardType: TextInputType.text,
-                ),
+                // CustomTextForm(
+                //   initialValue: user.areaName ?? '',
+                //   color: Colors.black,
+                //   onChanged: (value) {
+                //     user.areaName = value;
+                //   },
+                //   hintText: 'اسم المنطقة',
+                //   keyboardType: TextInputType.text,
+                // ),
                 SizedBox(height: 15.h),
                 CustomTextForm(
                   initialValue: user.buildingNum ?? '',
@@ -186,8 +179,6 @@ class Address extends StatelessWidget {
   void validationInput(UserModel user) async {
     if (user.streetName == null || user.streetName.isEmpty) {
       Notifications.error('يجب ادخال اسم الشارع');
-    } else if (user.areaName == null || user.areaName.isEmpty) {
-      Notifications.error('يجب ادخال اسم المنطقة');
     } else if (user.cityName == null || user.cityName.isEmpty) {
       Notifications.error('يجب ادخال اسم المدينة');
     } else if (user.buildingNum == null || user.buildingNum.isEmpty) {

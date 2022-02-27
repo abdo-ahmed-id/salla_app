@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/data/models/category.dart';
 import 'package:salla_app/data/models/product.dart';
-import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/category/product.widget.dart';
@@ -51,15 +50,15 @@ class CategoryPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       product = snapshot.data[index];
                       return InkWell(
-                          onTap: () {
-                            Modular.to.pushNamed(AppRoutes.product,
-                                arguments: product);
-                          },
+                          // onTap: () {
+                          //   Modular.to.pushNamed(AppRoutes.product,
+                          //       arguments: product);
+                          // },
                           child: ProductWidget(
-                            product: product,
-                            appBloc: _appBloc,
-                            state: state,
-                          ));
+                        product: product,
+                        appBloc: _appBloc,
+                        state: state,
+                      ));
                     },
                   );
                 });
@@ -79,7 +78,15 @@ class CategoryPage extends StatelessWidget {
               .where('brandCar', isEqualTo: _appState.brandSelect)
               .where('modelCar', isEqualTo: _appState.modelSelect));
       products1.addAll(products2);
+      List<Product> products3 = await FirestoreModel.use<Product>().get(
+          queryBuilder: (q) => q
+              .where('category', isEqualTo: category.title)
+              .where('brandCar', isEqualTo: _appState.brandSelect)
+              .where('modelCar', isEqualTo: ''));
+      //اضافة ان لو المنتج موجود ميفهوش في تاني
+      products1.addAll(products3);
     }
+
     return products1;
   }
 }
