@@ -55,7 +55,7 @@ class ProductViewPage extends StatelessWidget {
               height: 5.h,
             ),
             Container(
-              height: 500.h,
+              height: 800.h,
               width: double.infinity,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -77,19 +77,17 @@ class ProductViewPage extends StatelessWidget {
                               fontWeight: FontWeight.bold, fontSize: 22),
                         ),
                         leading: Container(
-                          height: 200,
-                          width: 70,
-                          child: Flexible(
-                            child: Text(
-                              product.company ?? 'Ac delco',
-                              style: GoogleFonts.lato(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18.sp,
-                                  color: Colors.blue),
-                              softWrap: true,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                          height: 200.h,
+                          width: 70.w,
+                          child: Text(
+                            product.company ?? 'Ac delco',
+                            style: GoogleFonts.lato(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.sp,
+                                color: Colors.blue),
+                            softWrap: true,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
                         trailing: Column(

@@ -74,19 +74,17 @@ class FavoritePage extends StatelessWidget {
                                         fontSize: 22.sp),
                                   ),
                                   leading: Container(
-                                    height: 200,
-                                    width: 70,
-                                    child: Flexible(
-                                      child: Text(
-                                        product.company ?? 'Ac delco',
-                                        style: GoogleFonts.lato(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.sp,
-                                            color: Colors.blue),
-                                        softWrap: true,
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
+                                    height: 200.h,
+                                    width: 70.w,
+                                    child: Text(
+                                      product.company ?? 'Ac delco',
+                                      style: GoogleFonts.lato(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 18.sp,
+                                          color: Colors.blue),
+                                      softWrap: true,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
                                   trailing: Column(

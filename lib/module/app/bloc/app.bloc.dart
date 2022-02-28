@@ -219,4 +219,7 @@ class AppBloc extends Cubit<AppState> {
       emit(state.copyWith(isWrite: false));
     }
   }
+  void clearState(){
+    emit(state.copyWith(modelSelect: '',brandSelect: ''));
+  }
 }
