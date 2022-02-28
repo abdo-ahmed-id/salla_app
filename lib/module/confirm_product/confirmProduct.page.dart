@@ -53,11 +53,7 @@ class ConfirmProductPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ModelStreamSingleBuilder<PromoCode>(
-              // query: (q) => q.where('code', isEqualTo: ''),
-              onSuccess: (promoCode) {
-            print('promCode ${promoCode.toMap}');
-            print('coast ${orderCoast(promoCode: promoCode)}');
+          child: ModelStreamGetBuilder<PromoCode>(onSuccess: (promoCods) {
             return Column(
               children: [
                 PrimaryTextField(
@@ -312,34 +308,65 @@ class ConfirmProductPage extends StatelessWidget {
                   // '${products.map((e) => int.parse(e.price) * e.amount).reduce((a, b) => a + b)}',
                   textColor: Colors.black,
                   onPressed: () async {
-                    if (promoCode.code == code) {
-                      Notifications.success(
-                          'لقد استخدمت برومو كود ${promoCode.title} سوف يتم خصم ${promoCode.discountP} %',
-                          time: 4);
+                    List<String> cods = [];
+                    promoCods.forEach((e) => cods.add(e.code));
+                    print(cods.toString());
+                    bool trueCode = cods.contains(code);
+                    print(trueCode);
+                    if (code != null && code != '' && trueCode == true) {
+                      PromoCode promoCode =
+                          await FirestoreModel.use<PromoCode>().first(
+                              queryBuilder: (q) =>
+                                  q.where('code', isEqualTo: code));
+                      if (promoCode.code == code) {
+                        Notifications.success(
+                            'لقد استخدمت برومو كود ${promoCode.title} سوف يتم خصم ${promoCode.discountP} %',
+                            time: 4);
+                      }
+                      print(promoCode.toMap);
+
+                      Order order = Order(
+                        user: user,
+                        products: products,
+                        notes: notes,
+                        promoCode:
+                            promoCode.code == code ? promoCode : PromoCode(),
+                        orderCoast: promoCode.code == code
+                            ? orderCoast(promoCode: promoCode)
+                            : null,
+                      );
+                      await order.create();
+                      products.forEach((element) async {
+                        AppState state = Modular.get<AppBloc>().state;
+                        Product product2 = await FirestoreModel.use<Product>()
+                            .find(element.docId);
+                        await product2.arrayRemove(
+                            field: 'shoppingCartList',
+                            elements: [state.user?.docId]);
+                        element.delete();
+                      });
+                      Modular.to.pushNamed(AppRoutes.thank);
+                      appBloc.changeIndexTo(0);
+                    } else {
+                      Order order = Order(
+                        user: user,
+                        products: products,
+                        notes: notes,
+                      );
+                      await order.create();
+                      products.forEach((element) async {
+                        AppState state = Modular.get<AppBloc>().state;
+                        Product product2 = await FirestoreModel.use<Product>()
+                            .find(element.docId);
+                        await product2.arrayRemove(
+                            field: 'shoppingCartList',
+                            elements: [state.user?.docId]);
+                        element.delete();
+                      });
+                      Modular.to.pushNamed(AppRoutes.thank);
+                      appBloc.changeIndexTo(0);
+                      //
                     }
-
-                    Order order = Order(
-                      user: user,
-                      products: products,
-                      notes: notes,
-                      promoCode: promoCode,
-                      orderCoast: promoCode.code == code
-                          ? orderCoast(promoCode: promoCode)
-                          : null,
-                    );
-                    await order.create();
-                    products.forEach((element) async {
-                      AppState state = Modular.get<AppBloc>().state;
-                      Product product2 = await FirestoreModel.use<Product>()
-                          .find(element.docId);
-                      await product2.arrayRemove(
-                          field: 'shoppingCartList',
-                          elements: [state.user?.docId]);
-                      element.delete();
-                    });
-                    Modular.to.pushNamed(AppRoutes.thank);
-
-                    appBloc.changeIndexTo(0);
                   },
                 ),
               ],

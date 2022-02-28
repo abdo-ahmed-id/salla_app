@@ -33,7 +33,7 @@ class Order extends FirestoreModel<Order> {
   @override
   Map<String, dynamic> get toMap => {
         'user': user.toMap,
-        'promoCode': promoCode.toMap,
+        'promoCode': promoCode?.toMap,
         'products': products.map((e) => e.toMap).toList(),
         'orderCoast': orderCoast,
         'notes': notes,
