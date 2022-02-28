@@ -27,7 +27,7 @@ class ProductWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Stack(
-        alignment: AlignmentDirectional.topCenter,
+        alignment: AlignmentDirectional.topEnd,
         children: [
           InkWell(
             onTap: () {
@@ -47,12 +47,21 @@ class ProductWidget extends StatelessWidget {
                       style: GoogleFonts.cairo(
                           fontWeight: FontWeight.bold, fontSize: 22.sp),
                     ),
-                    leading: Text(
-                      product.company ?? 'Ac delco',
-                      style: GoogleFonts.lato(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                          color: Colors.blue),
+                    leading: Container(
+                      height: 200,
+                      width: 70,
+                      child: Flexible(
+                        child: Text(
+                          product.company ?? 'Ac delco',
+                          style: GoogleFonts.lato(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18.sp,
+                              color: Colors.blue),
+                          softWrap: true,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                     ),
                     trailing: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -86,15 +95,17 @@ class ProductWidget extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          product.subTitle,
-                          style: GoogleFonts.cairo(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                              color: AppTheme.primaryColor),
+                        Flexible(
+                          child: Text(
+                            product.subTitle,
+                            style: GoogleFonts.cairo(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16.sp,
+                                color: AppTheme.primaryColor),
+                          ),
                         ),
                         RatingBar.builder(
-                          itemSize: 20,
+                          itemSize: 20.sp,
                           initialRating: product?.rate.toDouble() ?? 3,
                           minRating: 1,
                           direction: Axis.horizontal,
@@ -115,6 +126,9 @@ class ProductWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                SizedBox(
+                  height: 20.h,
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -124,7 +138,7 @@ class ProductWidget extends StatelessWidget {
                             height: 100.h,
                             width: 100.w,
                           )
-                        : Image.asset(
+                        : Image.network(
                             AssetsHelper.networkImage,
                             height: 90.h,
                             width: 90.w,

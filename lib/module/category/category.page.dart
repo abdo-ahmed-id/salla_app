@@ -67,26 +67,38 @@ class CategoryPage extends StatelessWidget {
   }
 
   Future<List<Product>> allProduct() async {
-    List<Product> products1 = await FirestoreModel.use<Product>().get(
-        queryBuilder: (q) => q
-            .where('category', isEqualTo: category.title)
-            .where('brandCar', isEqualTo: '')
-            .where('modelCar', isEqualTo: ''));
+    if (category?.carInformation == false) {
+      List<Product> products = await FirestoreModel.use<Product>().get(
+          queryBuilder: (q) => q
+              .where('category', isEqualTo: category.title)
+              .where('brandCar', isEqualTo: '')
+              .where('modelCar', isEqualTo: ''));
+      return products;
+    }
+
     if (category?.carInformation == true) {
+      List<Product> products1 = await FirestoreModel.use<Product>().get(
+          queryBuilder: (q) => q
+              .where('category', isEqualTo: category.title)
+              .where('brandCar', isEqualTo: '')
+              .where('modelCar', isEqualTo: ''));
       List<Product> products2 = await FirestoreModel.use<Product>().get(
           queryBuilder: (q) => q
               .where('brandCar', isEqualTo: _appState.brandSelect)
               .where('modelCar', isEqualTo: _appState.modelSelect));
       products1.addAll(products2);
-      List<Product> products3 = await FirestoreModel.use<Product>().get(
-          queryBuilder: (q) => q
-              .where('category', isEqualTo: category.title)
-              .where('brandCar', isEqualTo: _appState.brandSelect)
-              .where('modelCar', isEqualTo: ''));
-      //اضافة ان لو المنتج موجود ميفهوش في تاني
-      products1.addAll(products3);
-    }
+      if (_appState.modelSelect == '') {
+        List<Product> products3 = await FirestoreModel.use<Product>().get(
+            queryBuilder: (q) => q
+                .where('category', isEqualTo: category.title)
+                .where('brandCar', isEqualTo: _appState.brandSelect)
+                .where('modelCar', isEqualTo: ''));
+        products1.addAll(products3);
+      }
 
-    return products1;
+      //اضافة ان لو المنتج موجود ميفهوش في تاني
+
+      return products1;
+    }
   }
 }

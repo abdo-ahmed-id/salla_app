@@ -63,170 +63,218 @@ class ProductViewPage extends StatelessWidget {
                     topLeft: Radius.circular(40),
                     topRight: Radius.circular(40)),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: Stack(
+                alignment: AlignmentDirectional.topEnd,
                 children: [
-                  ListTile(
-                    title: Text(
-                      product.title,
-                      style: GoogleFonts.cairo(
-                          fontWeight: FontWeight.bold, fontSize: 22),
-                    ),
-                    leading: Flexible(
-                      child: Text(
-                        product.company,
-                        style: GoogleFonts.lato(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18.sp,
-                            color: Colors.blue),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                        softWrap: true,
-                      ),
-                    ),
-                    trailing: Text(
-                      '${product.price} جنية',
-                      style: GoogleFonts.cairo(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.sp,
-                          color: AppTheme.primaryColor),
-                    ),
-                    subtitle: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          product.subTitle,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 25.h),
+                      ListTile(
+                        title: Text(
+                          product.title,
                           style: GoogleFonts.cairo(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18.sp,
-                              color: AppTheme.primaryColor),
+                              fontWeight: FontWeight.bold, fontSize: 22),
                         ),
-                        RatingBar.builder(
-                          itemSize: 20.sp,
-                          initialRating: product.rate.toDouble(),
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 4.0),
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 10.sp,
-                          ),
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            ' متوافر لدينا في محطات ',
-                            style: GoogleFonts.cairo(
-                                height: 2.0.h,
-                                color: Colors.black,
-                                fontSize: 15.sp,
-                                fontWeight: FontWeight.bold),
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
+                        leading: Container(
+                          height: 200,
+                          width: 70,
+                          child: Flexible(
+                            child: Text(
+                              product.company ?? 'Ac delco',
+                              style: GoogleFonts.lato(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp,
+                                  color: Colors.blue),
+                              softWrap: true,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                         ),
-                        SizedBox(
-                          width: 20.w,
-                        ),
-                        Image.asset(
-                          AssetsHelper.mobilImage,
-                          height: 80.h,
-                          width: 80.w,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      'تفاصيل المنتج',
-                      style: GoogleFonts.cairo(
-                          color: Colors.blue,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: Text(
-                      product.description,
-                      style: GoogleFonts.cairo(
-                          height: 2.0.h,
-                          color: Colors.black,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.bold),
-                      maxLines: 5,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  Spacer(),
-                  ModelStreamSingleBuilder<Product>(
-                      docId: product.docId,
-                      onLoading: () => const Center(
-                            child: CircularProgressIndicator(),
-                          ),
-                      onSuccess: (product) {
-                        return BlocBuilder<AppBloc, AppState>(
-                            bloc: Modular.get<AppBloc>(),
-                            builder: (context, state) {
-                              return Container(
-                                height: 70,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    GradientButton(
-                                      text: product.shoppingCartList
-                                              .contains(state.user?.docId)
-                                          ? 'ازالة من السلة'
-                                          : 'اضافة الي السلة',
-                                      textColor: Colors.black,
-                                      onPressed: () {
-                                        Modular.get<AppBloc>().addShoppingCart(
-                                            product: product,
-                                            userModel: state.user);
-                                      },
-                                    ),
-                                    SizedBox(
-                                      width: 6.w,
-                                    ),
-                                    Card(
-                                      color: Colors.grey[200],
-                                      child: IconButton(
-                                        icon: Icon(
-                                          Icons.favorite,
-                                          color: product.favList
-                                                  .contains(state.user?.docId)
-                                              ? AppTheme.primaryColor
-                                              : Colors.black,
-                                        ),
-                                        onPressed: () {
-                                          Modular.get<AppBloc>().addFav(
-                                              product: product,
-                                              userModel: state.user);
-                                        },
-                                      ),
-                                    ),
-                                  ],
+                        trailing: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Text(
+                                ' ${product.price} جنيه ',
+                                style: GoogleFonts.cairo(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18.sp,
+                                    color: (product.discountP ?? 0) > 0
+                                        ? Colors.grey
+                                        : AppTheme.primaryColor),
+                              ),
+                            ),
+                            if ((product.discountP ?? 0) > 0)
+                              Expanded(
+                                flex: 1,
+                                child: Text(
+                                  ' ${(int.parse(product.price) - product.discountP * (int.parse(product.price) / 100))} جنيه ',
+                                  style: GoogleFonts.cairo(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.sp,
+                                      color: AppTheme.primaryColor),
                                 ),
-                              );
-                            });
-                      }),
+                              ),
+                          ],
+                        ),
+                        subtitle: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.subTitle,
+                              style: GoogleFonts.cairo(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.sp,
+                                  color: AppTheme.primaryColor),
+                            ),
+                            RatingBar.builder(
+                              itemSize: 20.sp,
+                              initialRating: product.rate.toDouble(),
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 4.0),
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                                size: 10.sp,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                ' متوافر لدينا في محطات ',
+                                style: GoogleFonts.cairo(
+                                    height: 2.0.h,
+                                    color: Colors.black,
+                                    fontSize: 15.sp,
+                                    fontWeight: FontWeight.bold),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 20.w,
+                            ),
+                            Image.asset(
+                              AssetsHelper.mobilImage,
+                              height: 80.h,
+                              width: 80.w,
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'تفاصيل المنتج',
+                          style: GoogleFonts.cairo(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(6.0),
+                        child: Text(
+                          product.description,
+                          style: GoogleFonts.cairo(
+                              height: 2.0.h,
+                              color: Colors.black,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 5,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Spacer(),
+                      ModelStreamSingleBuilder<Product>(
+                          docId: product.docId,
+                          onLoading: () => const Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                          onSuccess: (product) {
+                            return BlocBuilder<AppBloc, AppState>(
+                                bloc: Modular.get<AppBloc>(),
+                                builder: (context, state) {
+                                  return Container(
+                                    height: 70,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        GradientButton(
+                                          text: product.shoppingCartList
+                                                  .contains(state.user?.docId)
+                                              ? 'ازالة من السلة'
+                                              : 'اضافة الي السلة',
+                                          textColor: Colors.black,
+                                          onPressed: () {
+                                            Modular.get<AppBloc>()
+                                                .addShoppingCart(
+                                                    product: product,
+                                                    userModel: state.user);
+                                          },
+                                        ),
+                                        SizedBox(
+                                          width: 6.w,
+                                        ),
+                                        Card(
+                                          color: Colors.grey[200],
+                                          child: IconButton(
+                                            icon: Icon(
+                                              Icons.favorite,
+                                              color: product.favList.contains(
+                                                      state.user?.docId)
+                                                  ? AppTheme.primaryColor
+                                                  : Colors.black,
+                                            ),
+                                            onPressed: () {
+                                              Modular.get<AppBloc>().addFav(
+                                                  product: product,
+                                                  userModel: state.user);
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                });
+                          }),
+                    ],
+                  ),
+                  if ((product.discountP ?? 0) > 0)
+                    Container(
+                      height: 40,
+                      width: 80,
+                      color: Colors.red[800],
+                      child: Center(
+                          child: Text(
+                        '% ${product.discountP.toString()}',
+                        style: GoogleFonts.cairo(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.sp,
+                        ),
+                      )),
+                    ),
                 ],
               ),
             ),

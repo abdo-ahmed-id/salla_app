@@ -49,7 +49,7 @@ class ShoppingCartPage extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Stack(
-                            alignment: AlignmentDirectional.topCenter,
+                            alignment: AlignmentDirectional.topEnd,
                             children: [
                               Column(
                                 mainAxisSize: MainAxisSize.min,
@@ -66,12 +66,21 @@ class ShoppingCartPage extends StatelessWidget {
                                             fontWeight: FontWeight.bold,
                                             fontSize: 22),
                                       ),
-                                      leading: Text(
-                                        product?.company,
-                                        style: GoogleFonts.cairo(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18.sp,
-                                            color: Colors.blue),
+                                      leading: Container(
+                                        height: 200,
+                                        width: 70,
+                                        child: Flexible(
+                                          child: Text(
+                                            product.company ?? 'Ac delco',
+                                            style: GoogleFonts.lato(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18.sp,
+                                                color: Colors.blue),
+                                            softWrap: true,
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                        ),
                                       ),
                                       trailing: Column(
                                         mainAxisSize: MainAxisSize.min,
