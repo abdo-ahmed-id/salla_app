@@ -1,14 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firestore_model/firestore_model.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:salla_app/data/models/favoriets.dart';
 import 'package:salla_app/data/models/shopping_cart.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.routes.dart';
-import 'package:salla_app/helper/app.theme.dart';
-import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/notifications.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/app/service/auth.service.dart';
@@ -61,38 +58,40 @@ class AppBloc extends Cubit<AppState> {
     if (user != null) {
       userModel.docId = user.uid;
       await userModel.create(docId: user.uid);
-      await _authService.logout();
-      Notifications.dialog(
-        context,
-        dismissible: false,
-        child: Dialog(
-          child: Container(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const ListTile(
-                  leading: Icon(
-                    Icons.info_outline,
-                    color: Colors.white,
-                  ),
-                  title: Text(
-                    'يجب التحقق من البريد الالكتروني',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                CustomTextButton(
-                  color: AppTheme.primaryColor,
-                  text: 'تسجيل الدخول',
-                  onPressed: () {
-                    Modular.to.pushReplacementNamed(AppRoutes.login);
-                  },
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-      print('loading verify email');
+      Modular.to.pushNamed(AppRoutes.mainHome);
+      clearState();
+      // await _authService.logout();
+      // Notifications.dialog(
+      //   context,
+      //   dismissible: false,
+      //   child: Dialog(
+      //     child: Container(
+      //       child: Column(
+      //         mainAxisSize: MainAxisSize.min,
+      //         children: [
+      //           const ListTile(
+      //             leading: Icon(
+      //               Icons.info_outline,
+      //               color: Colors.white,
+      //             ),
+      //             title: Text(
+      //               'يجب التحقق من البريد الالكتروني',
+      //               style: TextStyle(color: Colors.black),
+      //             ),
+      //           ),
+      //           CustomTextButton(
+      //             color: AppTheme.primaryColor,
+      //             text: 'تسجيل الدخول',
+      //             onPressed: () {
+      //               Modular.to.pushReplacementNamed(AppRoutes.login);
+      //             },
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // );
+      // print('loading verify email');
     } else {
       print('user not found');
     }
@@ -102,14 +101,18 @@ class AppBloc extends Cubit<AppState> {
     User user = await _authService.signIn(email, password);
     if (user != null) {
       await getUserData();
-      print('provider: ${user.providerData.single.providerId}');
-      if (user.emailVerified == true) {
-        print(user.emailVerified);
-        print('finish verify email');
-        Notifications.success('تم تسجيل الدخول بنجاح');
-        Modular.to.pushReplacementNamed(AppRoutes.mainHome);
-      } else {
-        await _authService.logout();
+      Notifications.success('تم تسجيل الدخول بنجاح');
+      Modular.to.pushReplacementNamed(AppRoutes.mainHome);
+    }
+    // print('provider: ${user.providerData.single.providerId}');}
+    // if (user.emailVerified == true) {
+    //   print(user.emailVerified);
+    //   print('finish verify email');
+    //   Notifications.success('تم تسجيل الدخول بنجاح');
+    //   Modular.to.pushReplacementNamed(AppRoutes.mainHome);
+    // }
+    else {
+      /*await _authService.logout();
         print(user.emailVerified);
         Notifications.dialog(
           context,
@@ -126,9 +129,8 @@ class AppBloc extends Cubit<AppState> {
               ),
             ),
           ),
-        );
-        print('loading verify email');
-      }
+        );*/
+      print('loading verify email');
     }
   }
 
@@ -219,7 +221,8 @@ class AppBloc extends Cubit<AppState> {
       emit(state.copyWith(isWrite: false));
     }
   }
-  void clearState(){
-    emit(state.copyWith(modelSelect: '',brandSelect: ''));
+
+  void clearState() {
+    emit(state.copyWith(modelSelect: '', brandSelect: ''));
   }
 }
