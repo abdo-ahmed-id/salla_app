@@ -1,5 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:firestore_model/firestore_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:salla_app/data/models/product.dart';
+import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/helper/notifications.dart';
 
 class AuthService {
@@ -66,5 +71,56 @@ class AuthService {
   Future<User> loginOrCreateAccount(bool newAccount, String email,
       String password, BuildContext context) async {
     return newAccount ? signIn(email, password) : register(email, password);
+  }
+
+  void initDynamicLinks() async {
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData dynamicLink) async {
+      final Uri deepLink = dynamicLink?.link;
+      if (deepLink != null) {
+        handleDynamicLink(deepLink);
+      }
+    }, onError: (OnLinkErrorException e) async {
+      print('onLinkError');
+      print(e.message);
+    });
+
+    final PendingDynamicLinkData data =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+    final Uri deepLink = data?.link;
+
+    if (deepLink != null) {
+      handleDynamicLink(deepLink);
+    }
+  }
+
+  handleDynamicLink(Uri deepLink) async {
+    List<String> linkList = deepLink.toString().split('/');
+    String id = linkList.last;
+
+    Product product = await FirestoreModel.use<Product>().find(id);
+    Modular.to.pushNamed(AppRoutes.product, arguments: product);
+  }
+
+  Future<String> createDynamicLink({
+    String description,
+    String imageUrl,
+    String id,
+  }) async {
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      uriPrefix: 'https://abosalla.page.link',
+      link: Uri.parse('https://salla.com/$id'),
+      androidParameters: AndroidParameters(
+        packageName: 'com.example.salla_app',
+      ),
+      socialMetaTagParameters: SocialMetaTagParameters(
+        title: 'Salla',
+        description: description,
+        imageUrl: imageUrl != null ? Uri.parse(imageUrl) : null,
+      ),
+    );
+
+    final ShortDynamicLink dynamicUrl = await parameters.buildShortLink();
+    return dynamicUrl.shortUrl.toString();
   }
 }

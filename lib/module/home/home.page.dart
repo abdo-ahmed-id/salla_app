@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     Modular.get<AppBloc>().initState();
+    Modular.get<AuthService>().initDynamicLinks();
     super.initState();
   }
 
@@ -32,14 +33,14 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         body: ModelStreamGetBuilder<Category>(builder: (context, snapshot) {
       return GridView.builder(
-          itemCount: snapshot.data.length,
+          itemCount: snapshot?.data?.length,
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             mainAxisSpacing: 1.2.w,
             crossAxisSpacing: 1.3.h,
             maxCrossAxisExtent: 130.w,
           ),
           itemBuilder: (_, index) {
-            Category category = snapshot.data[index];
+            Category category = snapshot?.data[index];
             return Padding(
               padding: EdgeInsets.all(8.0.h),
               child: InkWell(

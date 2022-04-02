@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "592052277155",
-    "project_id": "salla-eb47d",
-    "storage_bucket": "salla-eb47d.appspot.com"
+    "project_number": "830133307664",
+    "project_id": "ecommerce-20bba",
+    "storage_bucket": "ecommerce-20bba.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:592052277155:android:b8d62aa207295594709416",
+        "mobilesdk_app_id": "1:830133307664:android:e4aa947edcd835d06cbd95",
         "android_client_info": {
-          "package_name": "com.example.sala_app"
+          "package_name": "com.example.ecomerce_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "592052277155-j2kqvcaq47q8gs55sfjosd7h9j3s6dul.apps.googleusercontent.com",
+          "client_id": "830133307664-la6h53ktkt3v4991uc9mtadco5pr4gq0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.ecomerce_app",
+            "certificate_hash": "ad5172e4db5f3bf7c2d54477c5704643b250c630"
+          }
+        },
+        {
+          "client_id": "830133307664-gojja98thr02ug1s9cb7326uj682kdg2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCmL9yDyBM8Ik-XjnaklAGMUDbAU_Vx-f4"
+          "current_key": "AIzaSyDu3XcVR7iRPnfpm-v2JFjwsPF0udlSWHA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "592052277155-j2kqvcaq47q8gs55sfjosd7h9j3s6dul.apps.googleusercontent.com",
+              "client_id": "830133307664-gojja98thr02ug1s9cb7326uj682kdg2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
@@ -36,27 +44,27 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:592052277155:android:287e94f824e7cf18709416",
+        "mobilesdk_app_id": "1:830133307664:android:589f8b814996ae556cbd95",
         "android_client_info": {
           "package_name": "com.example.salla_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "592052277155-j2kqvcaq47q8gs55sfjosd7h9j3s6dul.apps.googleusercontent.com",
+          "client_id": "830133307664-gojja98thr02ug1s9cb7326uj682kdg2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCmL9yDyBM8Ik-XjnaklAGMUDbAU_Vx-f4"
+          "current_key": "AIzaSyDu3XcVR7iRPnfpm-v2JFjwsPF0udlSWHA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "592052277155-j2kqvcaq47q8gs55sfjosd7h9j3s6dul.apps.googleusercontent.com",
+              "client_id": "830133307664-gojja98thr02ug1s9cb7326uj682kdg2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

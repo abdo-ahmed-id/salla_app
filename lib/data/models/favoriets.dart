@@ -8,6 +8,7 @@ class Favoriets extends SubCollectionModel<Favoriets> {
   num discountP;
   String description;
   List<String> images;
+  List<String> rates;
   String company;
   String subTitle;
   Favoriets(
@@ -18,7 +19,8 @@ class Favoriets extends SubCollectionModel<Favoriets> {
       this.description,
       this.images,
       this.subTitle,
-      this.company});
+      this.company,
+      this.rates});
 
   Favoriets.fromMap(Map<String, dynamic> map) {
     this.category = map['category'];
@@ -26,6 +28,7 @@ class Favoriets extends SubCollectionModel<Favoriets> {
     this.discountP = map['discountP'];
     this.description = map['description'];
     this.images = map['images'] is List ? map['images'].cast<String>() : null;
+    this.rates = map['rates'] is List ? map['rates'].cast<String>() : [];
     this.price = map['price'];
     this.rate = map['rate'];
     this.subTitle = map['subTitle'];
@@ -46,5 +49,6 @@ class Favoriets extends SubCollectionModel<Favoriets> {
         'discountP': this.discountP,
         'subTitle': this.subTitle,
         'company': this.company,
+        'rates': this.rates,
       };
 }

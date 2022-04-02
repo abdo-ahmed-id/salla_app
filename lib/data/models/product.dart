@@ -9,6 +9,7 @@ class Product extends FirestoreModel<Product> {
   String description;
   List<String> images;
   List<String> favList = [];
+  List<String> rates = [];
   List<String> shoppingCartList = [];
   String company;
   String subTitle;
@@ -22,11 +23,13 @@ class Product extends FirestoreModel<Product> {
       this.rate,
       this.description,
       this.images,
-      this.company});
+      this.company,
+      this.rates});
 
   Product.fromMap(Map<String, dynamic> map) {
     this.category = map['category'];
     this.favList = map['favList'] is List ? map['favList'].cast<String>() : [];
+    this.rates = map['rates'] is List ? map['rates'].cast<String>() : [];
     this.shoppingCartList = map['shoppingCartList'] is List
         ? map['shoppingCartList'].cast<String>()
         : [];
@@ -59,5 +62,6 @@ class Product extends FirestoreModel<Product> {
         'company': this.company,
         'brandCar': this.brandCar,
         'modelCar': this.modelCar,
+        'rates': this.rates,
       };
 }

@@ -1,7 +1,6 @@
 import 'package:firestore_model/firestore_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:salla_app/data/models/product.dart';
@@ -11,6 +10,7 @@ import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
 import 'package:salla_app/module/app/bloc/app.state.dart';
 import 'package:salla_app/module/app/service/auth.service.dart';
+import 'package:salla_app/module/widget/app_widgets.dart';
 import 'package:salla_app/widget.dart';
 
 import '../app/bloc/app.bloc.dart';
@@ -102,24 +102,10 @@ class ProductWidget extends StatelessWidget {
                                 color: AppTheme.primaryColor),
                           ),
                         ),
-                        RatingBar.builder(
-                          itemSize: 20.sp,
-                          initialRating: product?.rate.toDouble() ?? 3,
-                          minRating: 1,
-                          direction: Axis.horizontal,
-                          allowHalfRating: true,
-                          itemCount: 5,
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 4.0),
-                          itemBuilder: (context, _) => Icon(
-                            Icons.star,
-                            color: Colors.amber,
-                            size: 10.sp,
-                          ),
-                          onRatingUpdate: (rating) {
-                            print(rating);
-                          },
-                        )
+                        CustomRaringWidget(
+                          product: product,
+                          // isShow: false,
+                        ),
                       ],
                     ),
                   ),
@@ -211,6 +197,9 @@ class ProductWidget extends StatelessWidget {
                                     }
                                   : () {},
                             ),
+                          ),
+                          ShareButton(
+                            product: product,
                           )
                         ],
                       );

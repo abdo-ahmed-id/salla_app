@@ -43,6 +43,8 @@ dependencies:
   flutter_rating_bar: ^4.0.0
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
+  firebase_dynamic_links: ^2.0.9
+  share: ^2.0.4
   modal_bottom_sheet: ^2.0.0
   easy_localization: ^3.0.0
   firestore_model: ^0.9.7

@@ -8,6 +8,7 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
   num discountP;
   String description;
   List<String> images;
+  List<String> rates;
   num amount = 1;
   num totalCoast;
   String company;
@@ -22,13 +23,15 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
       this.amount,
       this.totalCoast,
       this.subTitle,
-      this.company});
+      this.company,
+      this.rates});
 
   ShoppingCart.fromMap(Map<String, dynamic> map) {
     this.category = map['category'];
     this.title = map['title'];
     this.description = map['description'];
     this.images = map['images'] is List ? map['images'].cast<String>() : null;
+    this.images = map['rates'] is List ? map['rates'].cast<String>() : [];
     this.price = map['price'];
     this.rate = map['rate'];
     this.discountP = map['discountP'];
@@ -54,5 +57,6 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
         'totalCoast': this.totalCoast,
         'subTitle': this.subTitle,
         'company': this.company,
+        'rates': this.rates,
       };
 }
