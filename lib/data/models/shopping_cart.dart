@@ -31,7 +31,7 @@ class ShoppingCart extends SubCollectionModel<ShoppingCart> {
     this.title = map['title'];
     this.description = map['description'];
     this.images = map['images'] is List ? map['images'].cast<String>() : null;
-    this.images = map['rates'] is List ? map['rates'].cast<String>() : [];
+    this.rates = map['rates'] is List ? map['rates'].cast<String>() : [];
     this.price = map['price'];
     this.rate = map['rate'];
     this.discountP = map['discountP'];

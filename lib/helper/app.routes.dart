@@ -14,4 +14,5 @@ class AppRoutes {
   static String personal = '/personal';
   static String address = '/address';
   static String payMethod = '/payMethod';
+  static String chat = '/chat';
 }

@@ -45,6 +45,7 @@ class ShoppingCartPage extends StatelessWidget {
                       itemCount: products.length,
                       itemBuilder: (context, index) {
                         ShoppingCart product = products[index];
+                        print(product.images.length);
 
                         return Padding(
                           padding: const EdgeInsets.all(8.0),

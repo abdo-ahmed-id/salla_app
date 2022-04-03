@@ -3,6 +3,7 @@ import 'package:salla_app/helper/app.routes.dart';
 import 'package:salla_app/module/Thank/thank.page.dart';
 import 'package:salla_app/module/app/bloc/app.bloc.dart';
 import 'package:salla_app/module/app/service/auth.service.dart';
+import 'package:salla_app/module/caht/caht.page.dart';
 import 'package:salla_app/module/category/category.page.dart';
 import 'package:salla_app/module/confirm_product/confirmProduct.page.dart';
 import 'package:salla_app/module/delivery/delivery.page.dart';
@@ -31,6 +32,10 @@ class AppModule extends Module {
     ChildRoute(AppRoutes.mainHome, child: (_, __) => MainHomePage()),
     ChildRoute(AppRoutes.address, child: (_, __) => Address()),
     ChildRoute(AppRoutes.payMethod, child: (_, __) => PayMethodPage()),
+    ChildRoute(AppRoutes.chat,
+        child: (_, args) => ChatPage(
+              user: args.data,
+            )),
     ChildRoute(AppRoutes.category,
         child: (_, args) => CategoryPage(
               category: args.data,

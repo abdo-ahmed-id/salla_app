@@ -71,14 +71,6 @@ class ConfirmProductPage extends StatelessWidget {
                     code = value;
                   },
                 ),
-                // Text(
-                //   'معلوماتك',
-                //   style: GoogleFonts.cairo(
-                //     fontWeight: FontWeight.bold,
-                //     fontSize: 18.sp,
-                //   ),
-                // ),
-                // const PersonalInformation(),
                 const Divider(
                   thickness: 3,
                 ),
@@ -373,6 +365,13 @@ class ConfirmProductPage extends StatelessWidget {
             );
           }),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.chat_bubble),
+        onPressed: () {
+          Modular.to.pushNamed(AppRoutes.chat, arguments: user);
+        },
+        backgroundColor: AppTheme.primaryColor,
       ),
     );
   }
