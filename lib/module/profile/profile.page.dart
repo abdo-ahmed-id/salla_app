@@ -42,6 +42,13 @@ class ProfilePage extends StatelessWidget {
                       icon: Icons.card_travel,
                     ),
                     CustomListTile(
+                      text: 'تواصل معنا',
+                      onTap: () {
+                        Modular.to.pushNamed(AppRoutes.chat);
+                      },
+                      icon: Icons.contact_support_outlined,
+                    ),
+                    CustomListTile(
                       text: 'تسجيل الخروج',
                       onTap: () {
                         Modular.get<AppBloc>().logOut();

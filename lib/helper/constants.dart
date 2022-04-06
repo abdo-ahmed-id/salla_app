@@ -1,4 +1,5 @@
 class Constants {
+  static const String adminId = 'kyHRdcFh9NXKlSxgCtze8cc1cBQ2';
   static List<K> cars = [
     K(brand: 'MG', model: ['3', '5', '6', 'RX5', 's350', 'Zs']),
     K(brand: 'BYD', model: [

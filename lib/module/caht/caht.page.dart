@@ -1,14 +1,21 @@
+import 'package:firestore_model/firestore_model.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:salla_app/data/models/massage.dart';
 import 'package:salla_app/data/models/users.dart';
 import 'package:salla_app/helper/app.theme.dart';
 import 'package:salla_app/helper/app.widget.dart';
 import 'package:salla_app/helper/assets.helper.dart';
+import 'package:salla_app/helper/constants.dart';
+import 'package:salla_app/module/caht/chat.widget.dart';
+
+import '../app/bloc/app.bloc.dart';
 
 class ChatPage extends StatelessWidget {
-  final UserModel user;
+  // final UserModel user;
+  UserModel currentUser = Modular.get<AppBloc>().state.user;
 
-  const ChatPage({this.user});
+  String text;
 
   @override
   Widget build(BuildContext context) {
@@ -27,70 +34,79 @@ class ChatPage extends StatelessWidget {
         child: SafeArea(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Align(
-                  alignment: Alignment.topLeft,
-                  child: massage(
-                      bottomLeft: 0.0, bottomRight: 10.0, color: Colors.grey),
-                ),
-              ),
-              SizedBox(height: 10),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: Align(
-                  alignment: Alignment.topRight,
-                  child: massage(
-                      bottomLeft: 10.0,
-                      bottomRight: 0.0,
-                      color: AppTheme.primaryColor),
-                ),
-              ),
-              Spacer(),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 5,
-                    child: PrimaryTextField(
-                      hintText: 'اترك رسالتك هنا',
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.send,
-                        color: AppTheme.primaryColor,
-                        size: 40,
+              ModelStreamGetBuilder<Massage>(
+                  query: (q) => q.orderBy('createdAt', descending: false),
+                  parentModel: currentUser,
+                  onSuccess: (massages) {
+                    return Expanded(
+                      flex: 12,
+                      child: ListView.separated(
+                        itemCount: massages.length,
+                        itemBuilder: (context, index) {
+                          Massage massage = massages[index];
+
+                          return Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 12.0),
+                            child: massage.senderId == currentUser.docId
+                                ? SeMassageWidget(
+                                    text: massage.text,
+                                  )
+                                : ReMassageWidget(
+                                    text: massage.text,
+                                  ),
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) {
+                          return SizedBox(height: 10);
+                        },
+                      ),
+                    );
+                  }),
+              // Spacer(),
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    Expanded(
+                      flex: 5,
+                      child: PrimaryTextField(
+                        onChanged: (value) {
+                          text = value;
+                        },
+                        hintText: 'اترك رسالتك هنا',
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      flex: 1,
+                      child: IconButton(
+                        onPressed: () async {
+                          Massage massage =
+                              currentUser.subCollection<Massage>();
+                          massage.text = text;
+                          massage.senderId = currentUser.docId;
+                          await massage.create();
+                          UserModel reUser =
+                              await FirestoreModel.use<UserModel>()
+                                  .find(Constants.adminId);
+                          Massage massage2 = reUser.subCollection<Massage>();
+                          massage2.text = text;
+                          massage2.senderId = currentUser.docId;
+                          massage2.receiverId = reUser.docId;
+                          await massage2.create();
+                        },
+                        icon: Icon(
+                          Icons.send,
+                          color: AppTheme.primaryColor,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               )
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget massage({num bottomLeft, num bottomRight, Color color}) {
-    return Container(
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-            bottomLeft: Radius.circular(bottomLeft),
-            bottomRight: Radius.circular(bottomRight),
-          )),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(
-          'Hello Worlld',
-          style: GoogleFonts.cairo(color: Colors.white, fontSize: 20),
         ),
       ),
     );

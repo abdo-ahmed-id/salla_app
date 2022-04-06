@@ -32,10 +32,7 @@ class AppModule extends Module {
     ChildRoute(AppRoutes.mainHome, child: (_, __) => MainHomePage()),
     ChildRoute(AppRoutes.address, child: (_, __) => Address()),
     ChildRoute(AppRoutes.payMethod, child: (_, __) => PayMethodPage()),
-    ChildRoute(AppRoutes.chat,
-        child: (_, args) => ChatPage(
-              user: args.data,
-            )),
+    ChildRoute(AppRoutes.chat, child: (_, args) => ChatPage()),
     ChildRoute(AppRoutes.category,
         child: (_, args) => CategoryPage(
               category: args.data,
